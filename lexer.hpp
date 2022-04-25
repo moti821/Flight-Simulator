@@ -6,14 +6,20 @@
 class Lexer
 {
 public:
-    Lexer();
+
+    Lexer(){};
+
     void opneInstructionsFile(std::string file_path);
     std::vector<std::string> getLine(int i);
-    // std::vector<std::vector<std::string>> getAllLines();
+    std::vector<std::vector<std::string>> getAllLines();
 
 private:
+
     std::vector<std::vector<std::string>> all_lines;
-    //static std::string my_string = 66
-    //void convertTextFile(?);
+
+    void split_string(std::string const &str, const char delim,
+            std::vector<std::string> &vec_line);
+    
+    
 
 };
