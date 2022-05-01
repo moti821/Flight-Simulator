@@ -11,6 +11,11 @@ void Parser::pars()
     std::vector<std::vector<std::string>> data = lex.getAllLines();
     for(int i=0 ; i<data.size() ; i++){
         std::vector<std::string> line = lex.getLine(i);
+        // if(line[0] == "while"){
+        //     while(){
+                
+        //     }
+        // }
     }
 
 };
