@@ -3,8 +3,21 @@
 #include <cstdlib> // For exit() and EXIT_FAILURE
 #include <iostream> // For cout
 #include <unistd.h> // For read
+#include "server.hpp"
+
+Server* Server::getInstance()
+{
+    if (instance == 0){
+       instance = new Server();
+    };
+    return instance;       
+};
+
 
 int main() {
+
+
+
   // Create a socket (IPv4, TCP)
   int sockfd = socket(AF_INET, SOCK_STREAM, 0);
   if (sockfd == -1) {
@@ -49,3 +62,9 @@ int main() {
   close(connection);
   close(sockfd);
 }
+
+
+// int main()
+// {
+
+// }

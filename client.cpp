@@ -3,7 +3,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <string.h>
-#include "client.h"
+#include "client.hpp"
 
 
 Client* Client::instance = 0;
@@ -15,8 +15,9 @@ Client* Client::getInstance()
     };
     return instance;       
 };
+Client::Client(){}
 
-void Client::connect(int port,std::string ip)
+void Client::connect(int port,std::string ip, char* command)
 {
     
     struct sockaddr_in serv_addr;
@@ -35,13 +36,28 @@ void Client::connect(int port,std::string ip)
         std::cout<<"Connection Failed"<<std::endl;
         return;
     }
+
+    // while (true)
+    // {
+    Client::send(command);
+    // };
+    
 }
 
-void Client::send()
+void Client::send(char* command)
 {
-    ::send(sock , command_line , strlen(command_line) , 0 );
+    ::send(sock , command , strlen(command) , 0 );
     std::cout<<"Hello message sent"<<std::endl;
-    valread = read( sock , buffer, 1024);
-    std::cout<< buffer <<std::endl;
+    //valread = read( sock , buffer, 1024);
+    //std::cout<< buffer <<std::endl;
     return;
+}
+
+
+int main()
+{
+    Client::getInstance()->connect(5402,"127.0.0.1","set controls/flight/rudder 0\r\n");
+
+
+
 }
