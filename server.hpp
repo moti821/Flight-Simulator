@@ -1,4 +1,4 @@
-
+#pragma once
 
 class Server
 {
@@ -10,7 +10,7 @@ class Server
     private:
         int sockfd;
         int connection; //= accept(sockfd, (struct sockaddr*)&sockaddr, (socklen_t*)&addrlen);
-        sockaddr_in sockaddr;
+        //sockaddr_in sockaddr;
 
         static Server* instance;
         Server();

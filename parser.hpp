@@ -1,3 +1,4 @@
+#pragma once
 
 class Parser
 {
@@ -8,6 +9,5 @@ public:
     void pars();
 
 private:
-
-
+    // void runner(Command* command);
 };

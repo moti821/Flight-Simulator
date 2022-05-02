@@ -1,4 +1,4 @@
-
+#pragma once
 
 class Command
 {
@@ -10,5 +10,11 @@ public:
 class Openservercommand : public Command
 {
 public:
-    void do_command();
+    virtual void do_command();
+};
+
+class Connectcommand : public Command
+{
+public:
+    virtual void do_command();
 };

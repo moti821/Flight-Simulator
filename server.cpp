@@ -16,6 +16,7 @@ Server* Server::getInstance()
 };
 Server::Server(){}
 
+sockaddr_in sockaddr;
 void Server::connect()
 {
   // Create a socket (IPv4, TCP)
@@ -26,7 +27,6 @@ void Server::connect()
   }
 
   // Listen to port 9999 on any address
-  //sockaddr_in sockaddr;
   sockaddr.sin_family = AF_INET;
   sockaddr.sin_addr.s_addr = INADDR_ANY;
   sockaddr.sin_port = htons(5400); // htons is necessary to convert a number to
