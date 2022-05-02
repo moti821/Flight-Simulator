@@ -54,10 +54,7 @@ void Client::send(char* command)
 }
 
 
-int main()
-{
-    Client::getInstance()->connect(5402,"127.0.0.1","set controls/flight/rudder 0\r\n");
-
-
-
-}
+// int main()
+// {
+//     Client::getInstance()->connect(5402,"127.0.0.1","set controls/flight/rudder 0\r\n");
+// }
