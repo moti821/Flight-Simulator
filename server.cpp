@@ -16,6 +16,7 @@ Server* Server::getInstance()
 };
 Server::Server(){}
 
+
 sockaddr_in sockaddr;
 void Server::connect()
 {

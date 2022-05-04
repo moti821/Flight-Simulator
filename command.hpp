@@ -7,11 +7,13 @@ public:
 
 };
 
+
 class Openservercommand : public Command
 {
 public:
     virtual void do_command();
 };
+
 
 class Connectcommand : public Command
 {

@@ -9,5 +9,8 @@ public:
     void pars();
 
 private:
-    // void runner(Command* command);
+    std::unordered_map<std::string,Command*> commands;
+    // void create_h_map();
+
+    //void runner(Command* command);
 };
