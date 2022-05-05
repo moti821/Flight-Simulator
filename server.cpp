@@ -1,5 +1,4 @@
 #include <sys/socket.h> // For socket functions
-#include <netinet/in.h> // For sockaddr_in
 #include <cstdlib> // For exit() and EXIT_FAILURE
 #include <iostream> // For cout
 #include <unistd.h> // For read
@@ -17,7 +16,6 @@ Server* Server::getInstance()
 Server::Server(){}
 
 
-sockaddr_in sockaddr;
 void Server::connect()
 {
   // Create a socket (IPv4, TCP)
@@ -27,7 +25,7 @@ void Server::connect()
     exit(EXIT_FAILURE);
   }
 
-  // Listen to port 9999 on any address
+  // Listen to port 5400 on any address
   sockaddr.sin_family = AF_INET;
   sockaddr.sin_addr.s_addr = INADDR_ANY;
   sockaddr.sin_port = htons(5400); // htons is necessary to convert a number to

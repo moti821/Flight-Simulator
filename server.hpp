@@ -1,4 +1,5 @@
 #pragma once
+#include <netinet/in.h> // For sockaddr_in
 
 class Server
 {
@@ -9,8 +10,8 @@ class Server
 
     private:
         int sockfd;
-        int connection; //= accept(sockfd, (struct sockaddr*)&sockaddr, (socklen_t*)&addrlen);
-        //sockaddr_in sockaddr;
+        int connection; 
+        sockaddr_in sockaddr;
 
         static Server* instance;
         Server();
