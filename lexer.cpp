@@ -59,13 +59,8 @@ std::vector<std::string> Lexer::getLine(int i)
 
  std::vector<std::vector<std::string>> Lexer::getAllLines()
  {
+     if(all_lines.size() < 1){
+         std::cout << "The data not exzist" << std::endl;
+     };
      return all_lines;
  }
-
-// int main()
-// {
-//     Lexer s;
-//     s.opneInstructionsFile("file_text.txt");
-//     //Lexer::opneInstructionsFile("/home/file_text")
-//     return 0;
-// };

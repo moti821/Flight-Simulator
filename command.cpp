@@ -3,10 +3,10 @@
 #include "client.hpp"
 #include <any>
 
-//Command::Command(){}
+
 void Openservercommand::do_command()
 {
-    //Server::getInstance()->connect();
+    Server::getInstance()->connect();
 }
 
 void Connectcommand::do_command()

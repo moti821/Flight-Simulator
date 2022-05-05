@@ -5,7 +5,7 @@
         "type": "cppbuild",
         "label": "C/C++: g++ build active file",
         "command": "/usr/bin/g++",
-        "args": ["-g", "*.cpp", "-o", "${fileDirname}/${fileBasenameNoExtension}"],
+        "args": ["-g", "*.cpp", "-o", "/home/richard/Flight-Simulator/main.cpp"],
         "options": {
           "cwd": "/usr/bin"
         },
