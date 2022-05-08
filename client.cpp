@@ -20,6 +20,8 @@ Client::Client(){}
 void Client::connect(int port,std::string ip, char* command)
 {
     
+
+
     struct sockaddr_in serv_addr;
     
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
