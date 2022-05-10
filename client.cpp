@@ -17,9 +17,11 @@ Client* Client::getInstance()
 };
 Client::Client(){}
 
-void Client::connect(int port,std::string ip, char* command)
+void Client::connect(std::vector<std::string>& line_command)
 {
-    
+    std::string ip = line_command[1];
+    int port = stoi(line_command[2]);
+    char* command = "set controls/flight/rudder 1\r\n";
 
 
     struct sockaddr_in serv_addr;
@@ -54,9 +56,3 @@ void Client::send(char* command)
     //std::cout<< buffer <<std::endl;
     return;
 }
-
-
-// int main()
-// {
-//     Client::getInstance()->connect(5402,"127.0.0.1","set controls/flight/rudder 0\r\n");
-// }

@@ -7,7 +7,7 @@ class Client
 public:
     /* Static access method. */
     static Client *getInstance();
-    void connect(int port,std::string ip, char* command);
+    void connect(std::vector<std::string>&);
 
 private:
     /* Null, because instance will be initialized on demand. */

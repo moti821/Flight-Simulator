@@ -6,28 +6,8 @@ Parser::Parser()
     commands["connect"] = new Connectcommand;
 }
 
-void Parser::pars()
+Command* Parser::parse(std::vector<std::string>& line)
 {
-
-    Lexer *lex = new Lexer;
-    lex->opneInstructionsFile("file_text.txt");
-    std::vector<std::vector<std::string>> data = lex->getAllLines();
-
-    for (int i = 0; i < data.size(); i++)
-    {
-        std::vector<std::string> line = data[i]; // lex->getLine(i);
-        Command *next_command = commands[line[0]];
-        runner(next_command, line);
-
-        if (line[0] == "while")
-        {
-            // while_loop();
-        }
-    }
+    Command *next_command = commands[line[0]];
+    return next_command;        
 };
-
-void Parser::runner(Command *command, std::vector<std::string> line_command)
-{
-    std::cout << command << std::endl;
-    command->do_command(line_command);
-}
