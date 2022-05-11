@@ -17,14 +17,8 @@ Client* Client::getInstance()
 };
 Client::Client(){}
 
-void Client::connect(std::vector<std::string>& line_command)
+void Client::connect(int port, std::string ip, char* command)
 {
-    std::string ip = line_command[1];
-    int port = stoi(line_command[2]);
-    char* command = "set controls/flight/rudder 1\r\n";
-
-
-    struct sockaddr_in serv_addr;
     
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
@@ -32,6 +26,7 @@ void Client::connect(std::vector<std::string>& line_command)
         return;
     }
 
+    struct sockaddr_in serv_addr;
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(port);
     

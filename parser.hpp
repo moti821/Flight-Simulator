@@ -11,4 +11,5 @@ public:
 
 private:
     std::unordered_map<std::string, Command *> commands;
+    // std::unordered_map<std::string, std::string> variable;
 };

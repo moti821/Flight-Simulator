@@ -2,12 +2,13 @@
 #include <netinet/in.h> // For sockaddr_in
 #include <vector>
 #include <string>
+#include <thread>
 
 class Server
 {
 public:
     static Server *getInstance();
-    void connect(std::vector<std::string>);
+    std::thread connect(std::vector<std::string>);
 
 private:
     int sockfd;

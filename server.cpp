@@ -16,7 +16,7 @@ Server *Server::getInstance()
 };
 Server::Server() {}
 
-void Server::connect(std::vector<std::string> line_cmd)
+std::thread Server::connect(std::vector<std::string> line_cmd)
 {
   int port = stoi(line_cmd[1]);
   int rhythm = stoi(line_cmd[2]);
@@ -40,8 +40,8 @@ void Server::connect(std::vector<std::string> line_cmd)
   }
 
   get_data(sockfd, rhythm);
-
-  return;
+  
+  return std::thread([=] { connect(line_cmd); });
 }
 
 void Server::get_data(int sockfd, int rhythm)

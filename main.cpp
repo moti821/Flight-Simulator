@@ -5,11 +5,6 @@
 #include "client.hpp"
 #include "command.hpp"
 
-void runner(Command *command, std::vector<std::string> line_command)
-{
-    std::cout << command << std::endl;
-    command->do_command(line_command);
-}
 
 
 int main()
@@ -23,12 +18,7 @@ int main()
     {
         std::vector<std::string> line = data[i];
         Command* command = pars.parse(line);
-        runner(command,line);
-
-        if (line[0] == "while")
-        {
-            // while_loop();
-        }
+        command->do_command(line);
 
     }
 }
