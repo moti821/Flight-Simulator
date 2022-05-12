@@ -3,19 +3,24 @@
 #include <vector>
 #include <string>
 #include <thread>
+#include <sys/socket.h> // For socket functions
+#include <cstdlib>      // For exit() and EXIT_FAILURE
+#include <iostream>     // For cout
+#include <unistd.h>     // For read
 
 class Server
 {
 public:
-    static Server *getInstance();
-    std::thread connect(std::vector<std::string>);
+    static Server *getInstance(std::vector<std::string> lin);
+    void opne_connect();
 
 private:
-    int sockfd;
-    int connection;
-    sockaddr_in sockaddr;
-
     static Server *instance;
-    Server();
-    void get_data(int sockfd, int rhythm);
+    Server(std::vector<std::string>);
+    std::thread t1;
+
+    int port = 5400;
+  int rhythm;
+  
+
 };

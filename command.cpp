@@ -1,9 +1,10 @@
 #include <iostream>
-#include <thread>
+// #include <thread>
 #include "command.hpp"
 #include "server.hpp"
 #include "client.hpp"
 #include <any>
+#include <string>
 
 void OpenServerCommand::do_command(std::vector<std::string>& line_command)
 {
@@ -11,9 +12,7 @@ void OpenServerCommand::do_command(std::vector<std::string>& line_command)
     {
         std::cout << "Enter port and rhythm" << std::endl;
     }
-    Server* server = Server::getInstance();
-    std::thread th = server->connect(line_command);
-    th.detach();
+    Server::getInstance(line_command)->opne_connect();
 }
 
 void ConnectCommand::do_command(std::vector<std::string>& line_command)
