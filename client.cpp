@@ -17,7 +17,7 @@ Client* Client::getInstance()
 };
 Client::Client(){}
 
-void Client::connect(int port, std::string ip, char* command)
+void Client::connect(int port, std::string ip)
 {
     
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
@@ -35,18 +35,12 @@ void Client::connect(int port, std::string ip, char* command)
         std::cout<<"Connection Failed"<<std::endl;
         return;
     }
-
-    // while (true)
-    // {
-    Client::send(command);
-    // };
-    
 }
 
 void Client::send(char* command)
 {
     ::send(sock , command , strlen(command) , 0 );
-    std::cout<<"Hello message sent"<<std::endl;
+    std::cout<<"command is: " << command <<std::endl;
     //valread = read( sock , buffer, 1024);
     //std::cout<< buffer <<std::endl;
     return;

@@ -66,7 +66,7 @@ void get_data(int connection, int sockfd)
     // Read from the connection
     char buffer[1000];
     auto bytesRead = read(connection, buffer, 1000);
-    std::cout << "The message was: " << buffer;
+    //std::cout << "The message was: " << buffer;
 
     // Send a message to the connection
     std::string response = "Good talking to you\n";
