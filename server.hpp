@@ -7,16 +7,20 @@
 #include <cstdlib>      // For exit() and EXIT_FAILURE
 #include <iostream>     // For cout
 #include <unistd.h>     // For read
+#include <cstring>
+#include "data_base.hpp"
 
 class Server
 {
 public:
     static Server *getInstance(std::vector<std::string> lin);
     void opne_connect();
+    void split_buffer(std::string);
 
 private:
     static Server *instance;
     Server(std::vector<std::string>);
+    std::vector<std::string> paths;
     std::thread t1;
 
     int port = 5400;

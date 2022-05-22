@@ -6,7 +6,6 @@
 class Command
 {
 public:
-    std::unordered_map<std::string, std::string> variable;
     virtual void do_command(std::vector<std::string>&) = 0;
 };
 
@@ -28,10 +27,12 @@ public:
 class VarCommand : public Command
 {
 public:
+    VarCommand(){}
     virtual void do_command(std::vector<std::string>&);
+    // std::unordered_map<std::string, std::string>& get_H_map();
+    static std::unordered_map<std::string, std::string> variable;
 private:
 };
-
 
 class EqualCommand : public Command
 {
