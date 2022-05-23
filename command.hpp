@@ -2,7 +2,9 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
-// #include<thread>
+#include "server.hpp"
+
+
 class Command
 {
 public:
@@ -34,6 +36,7 @@ public:
 private:
 };
 
+
 class EqualCommand : public Command
 {
 public:
@@ -42,6 +45,20 @@ public:
 
 
 class WhileCommand : public Command
+{
+public:
+    virtual void do_command(std::vector<std::string>&);
+};
+
+
+class PrintCommand : public Command
+{
+public:
+    virtual void do_command(std::vector<std::string>&);
+};
+
+
+class SleepCommand : public Command
 {
 public:
     virtual void do_command(std::vector<std::string>&);

@@ -1,9 +1,10 @@
 #include "server.hpp"
-// #include "data_base.hpp"
 
 Server *Server::instance = 0;
-
 void get_data(int connection, int sockfd);
+DataBase* D_B = DataBase::get_instance();
+std::array<std::string, 36> Server::name_to_number;
+Server* serv = Server::getInstance({""});
 
 
 Server *Server::getInstance(std::vector<std::string> lin)
@@ -14,10 +15,8 @@ Server *Server::getInstance(std::vector<std::string> lin)
   };
   return instance;
 };
+Server::Server(std::vector<std::string> line_cmd){}
 
-
-
-Server::Server(std::vector<std::string> line_cmd) {}
 
 void Server::opne_connect()
 {
@@ -57,7 +56,10 @@ void Server::opne_connect()
     std::cout << "Failed to grab connection. errno: " << errno << std::endl;
     exit(EXIT_FAILURE);
   }
+
   t1 = std::thread(get_data,connection, sockfd);
+  
+  return;
 }
 
 
@@ -66,14 +68,24 @@ void get_data(int connection, int sockfd)
   while (true)
   {
     // Read from the connection
-    char buffer[1000];
-    auto bytesRead = read(connection, buffer, 1000);
-    //std::cout << "The message was: " << buffer;
-    Server::getInstance({""})->split_buffer(buffer);
+    char buffer[1024];
+    auto bytesRead = read(connection, buffer, 1024);
+    std::vector<double> values = Server::getInstance({""})->split_buffer(buffer);
+    for (int i = 0; i < 36 ; i++)
+    {
+      std::string name = serv->name_to_number[i];
+      if(serv->name_to_number[i] != "")
+      {
+        D_B->symbol_table[serv->name_to_number[i]] = values[i];
+        // std::cout << D_B->symbol_table[serv->name_to_number[i]] << " ";
+        std::cout << "name printing in server from name to number: " << name << " " << D_B->symbol_table[serv->name_to_number[i]] << std::endl;
+      }
+    }
+    // std::cout << "finish" << std::endl;
 
     // Send a message to the connection
-    std::string response = "Good talking to you\n";
-    send(connection, response.c_str(), response.size(), 0);
+    // std::string response = "Good talking to you\n";
+    // send(connection, response.c_str(), response.size(), 0);
   }
 
   // Close the connections
@@ -81,34 +93,34 @@ void get_data(int connection, int sockfd)
   close(sockfd);
 };
 
-void Server::split_buffer(std::string buffer)
+std::vector<double> Server::split_buffer(std::string buffer)
 {
-  paths = {"/instrumentation/airspeed-indicator/indicated-speed-kt","/sim/time/warp","/controls/switches/magnetos","/instrumentation/heading-indicator/offset-deg","/instrumentation/altimeter/indicated-altitude-ft","/instrumentation/altimeter/pressure-alt-ft","/instrumentation/attitude-indicator/indicated-pitch-deg","/instrumentation/attitude-indicator/indicated-roll-deg","/instrumentation/attitude-indicator/internal-pitch-deg","/instrumentation/attitude-indicator/internal-roll-deg","/instrumentation/encoder/indicated-altitude-ft","/instrumentation/encoder/pressure-alt-ft","/instrumentation/gps/indicated-altitude-ft","/instrumentation/gps/indicated-ground-speed-kt","/instrumentation/gps/indicated-vertical-speed","/instrumentation/heading-indicator/indicated-heading-deg","/instrumentation/magnetic-compass/indicated-heading-deg","/instrumentation/slip-skid-ball/indicated-slip-skid","/instrumentation/turn-indicator/indicated-turn-rate","/instrumentation/vertical-speed-indicator/indicated-speed-fpm","/controls/flight/aileron","/controls/flight/elevator","/controls/flight/rudder","/controls/flight/flaps","/controls/engines/engine/throttle","/controls/engines/current-engine/throttle","/controls/switches/master-avionics","/controls/switches/starter","/engines/active-engine/auto-start","/controls/flight/speedbrake" ,"/sim/model/c172p/brake-parking","/controls/engines/engine/primer","/controls/engines/current-engine/mixture","/controls/switches/master-bat","/controls/switches/master-alt","/engines/engine/rpm"};
   std::vector<double> values;
   std::string oun_value;
   for(int i=0 ; i < buffer.size() ; i++)
   {
-    if(buffer[i] != ',')
+    if(buffer[i] == ',')
     {
-      oun_value.push_back(buffer[i]);
-    }
-    else
+      double value = std::stod(oun_value);
+      values.push_back(value);
+      oun_value = "";
+    }else if(buffer[i] == NULL)
     {
       double value = std::stod(oun_value);
       values.push_back(value);
       oun_value = "";
     }
+    else
+    {
+      oun_value.push_back(buffer[i]);
+    }
+    // if(i = buffer.size()-1)
+    // {
+    // }
   }
 
-  for (int i = 0; i < values.size() ; i++)
-  {
-    DataBase::get_instance()->create_H_map();
-    DataBase::get_instance()->symbol_table[paths[i]] = values[i];
-    std::cout << DataBase::get_instance()->symbol_table[paths[i]] << " ";
-  }
-  std::cout << "finish" << std::endl;
   // DataBase* insta = DataBase::get_instance();
   // std::unordered_map<std::string, double> d = DataBase::get_instance()->symbol_table;
 
-  return;
+  return values;
 }

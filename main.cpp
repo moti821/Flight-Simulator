@@ -21,6 +21,10 @@ int main()
         std::vector<std::string> line = data[i];
         Command* command = pars.parse(line);
         command->do_command(line);
+        if(line[0] == "while")
+        {
+            //
+        }
 
     }
 }

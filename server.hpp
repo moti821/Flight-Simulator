@@ -10,21 +10,22 @@
 #include <cstring>
 #include "data_base.hpp"
 
+
 class Server
 {
 public:
     static Server *getInstance(std::vector<std::string> lin);
     void opne_connect();
-    void split_buffer(std::string);
+    std::vector<double> split_buffer(std::string);
+    static std::array<std::string, 36> name_to_number;
+
 
 private:
     static Server *instance;
     Server(std::vector<std::string>);
-    std::vector<std::string> paths;
+    // std::vector<std::string> paths;
     std::thread t1;
 
     int port = 5400;
-  int rhythm;
-  
-
+    int rhythm;
 };
