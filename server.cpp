@@ -40,7 +40,7 @@ void Server::opne_connect()
     std::cout << "Failed to bind to port 9999. errno: " << errno << std::endl;
     exit(EXIT_FAILURE);
   }
-  std::cout << "connection" << std::endl;
+  std::cout << "connection pending" << std::endl;
 
   // Start listening. Hold at most 10 connections in the queue
   if (listen(sockfd, 10) < 0)
@@ -104,12 +104,13 @@ std::vector<double> Server::split_buffer(std::string buffer)
       double value = std::stod(oun_value);
       values.push_back(value);
       oun_value = "";
-    }else if(buffer[i] == NULL)
-    {
-      double value = std::stod(oun_value);
-      values.push_back(value);
-      oun_value = "";
     }
+    // }else if(buffer[i] == NULL)
+    // {
+    //   double value = std::stod(oun_value);
+    //   values.push_back(value);
+    //   oun_value = "";
+    // }
     else
     {
       oun_value.push_back(buffer[i]);

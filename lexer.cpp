@@ -2,6 +2,19 @@
 #include <sstream>
 #include "lexer.hpp"
 
+Lexer* Lexer::instance = 0;
+
+Lexer* Lexer::get_instance()
+{
+    if(instance == 0)
+    {
+        Lexer* instance = new Lexer;
+    }
+    return instance;
+}
+
+std::vector<std::vector<std::string>> Lexer::all_lines;
+
 void Lexer::opneInstructionsFile(std::string file_path)
 {
 

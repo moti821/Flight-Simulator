@@ -10,7 +10,7 @@
 
 int main()
 {
-    Lexer *lex = new Lexer;
+    Lexer *lex = Lexer::get_instance();
     lex->opneInstructionsFile("file_text.txt");
     std::vector<std::vector<std::string>> data = lex->getAllLines();
     // DataBase::get_instance()->create_H_map();
@@ -20,11 +20,11 @@ int main()
     {
         std::vector<std::string> line = data[i];
         Command* command = pars.parse(line);
-        command->do_command(line);
+        command->do_command(i);
         if(line[0] == "while")
         {
-            //
+            WhileCommand whil;
+            i = whil.next_line();
         }
-
     }
 }
