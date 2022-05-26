@@ -13,6 +13,18 @@ Parser::Parser()
 
 Command *Parser::parse(std::vector<std::string> &line)
 {
+    if(!std::isalpha(line[0][0]))
+    {
+        std::string new_string;
+        for (int i = 0; i < line[0].size(); i++)
+        {
+            if(std::isalpha(line[0][i]))
+            {
+                new_string += line[0][i];
+            }
+        }
+        line[0] = new_string; 
+    }
     Command *next_command = commands[line[0]];
     if(next_command == (Command*)0x0)
     {

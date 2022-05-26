@@ -77,15 +77,10 @@ void get_data(int connection, int sockfd)
       if(serv->name_to_number[i] != "")
       {
         D_B->symbol_table[serv->name_to_number[i]] = values[i];
-        // std::cout << D_B->symbol_table[serv->name_to_number[i]] << " ";
-        std::cout << "name printing in server from name to number: " << name << " " << D_B->symbol_table[serv->name_to_number[i]] << std::endl;
+        // std::cout << "name printing in server from name to number: " << name << " " << D_B->symbol_table[serv->name_to_number[i]] << std::endl;
       }
     }
     // std::cout << "finish" << std::endl;
-
-    // Send a message to the connection
-    // std::string response = "Good talking to you\n";
-    // send(connection, response.c_str(), response.size(), 0);
   }
 
   // Close the connections
@@ -96,6 +91,7 @@ void get_data(int connection, int sockfd)
 std::vector<double> Server::split_buffer(std::string buffer)
 {
   std::vector<double> values;
+  values.clear();
   std::string oun_value;
   for(int i=0 ; i < buffer.size() ; i++)
   {
@@ -115,13 +111,6 @@ std::vector<double> Server::split_buffer(std::string buffer)
     {
       oun_value.push_back(buffer[i]);
     }
-    // if(i = buffer.size()-1)
-    // {
-    // }
   }
-
-  // DataBase* insta = DataBase::get_instance();
-  // std::unordered_map<std::string, double> d = DataBase::get_instance()->symbol_table;
-
   return values;
 }

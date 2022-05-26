@@ -233,6 +233,6 @@ void Token< T >::evaluate (Calculator * c) { c->consume (token_); }
 
 // int main () {
 //     Calculator c;
-//     std::cout << c.calculate ("(20+10)*3/2-3") << std::endl;
+//     std::cout << c.calculate ("2.8864+2.1136") << std::endl;
 //     return 0;
 // }
