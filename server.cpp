@@ -68,18 +68,10 @@ void get_data(int connection, int sockfd)
   while (true)
   {
     // Read from the connection
-    char buffer[1024];
+    char buffer[1024] = {0};
     auto bytesRead = read(connection, buffer, 1024);
-    std::vector<double> values = Server::getInstance({""})->split_buffer(buffer);
-    for (int i = 0; i < 36 ; i++)
-    {
-      std::string name = serv->name_to_number[i];
-      if(serv->name_to_number[i] != "")
-      {
-        D_B->symbol_table[serv->name_to_number[i]] = values[i];
-        // std::cout << "name printing in server from name to number: " << name << " " << D_B->symbol_table[serv->name_to_number[i]] << std::endl;
-      }
-    }
+    // std::vector<double> values = 
+    Server::getInstance({""})->split_buffer(buffer);
     // std::cout << "finish" << std::endl;
   }
 
@@ -88,7 +80,7 @@ void get_data(int connection, int sockfd)
   close(sockfd);
 };
 
-std::vector<double> Server::split_buffer(std::string buffer)
+void Server::split_buffer(std::string buffer)
 {
   std::vector<double> values;
   values.clear();
@@ -97,20 +89,34 @@ std::vector<double> Server::split_buffer(std::string buffer)
   {
     if(buffer[i] == ',')
     {
-      double value = std::stod(oun_value);
+      double value = 0;
+      value = std::stod(oun_value);
       values.push_back(value);
       oun_value = "";
     }
-    // }else if(buffer[i] == NULL)
-    // {
-    //   double value = std::stod(oun_value);
-    //   values.push_back(value);
-    //   oun_value = "";
-    // }
     else
     {
+      // if(buffer[i] == '-')
+      // {
+      //   oun_value.push_back(0);
+      // }
       oun_value.push_back(buffer[i]);
     }
   }
-  return values;
+  double value = 0;
+  value = std::stod(oun_value);
+  values.push_back(value);
+  oun_value = "";
+  std::cout << "from server size of vulues is: " << values.size() << std::endl;
+  for (int j = 0; j < serv->name_to_number.size() ; j++)
+  {
+    std::string name = serv->name_to_number[j];
+    if(serv->name_to_number[j] != "")
+    {
+      D_B->symbol_table[serv->name_to_number[j]] = values[j];
+      std::cout << "name printing in server from name to number: " << name << " " << D_B->symbol_table[serv->name_to_number[j]] << std::endl;
+    }
+  }
+
+  return;
 }

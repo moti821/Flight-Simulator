@@ -2,10 +2,12 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include <thread>
+#include <chrono>
 #include "server.hpp"
 #include "lexer.hpp"
-// #include "parser.hpp"
-// #include "shunting_yard.cpp"
+#include "data_base.hpp"
+
 
 
 class Command
@@ -34,8 +36,7 @@ class VarCommand : public Command
 public:
     VarCommand(){}
     virtual void do_command(int);
-    // std::unordered_map<std::string, std::string>& get_H_map();
-    static std::unordered_map<std::string, std::string> variable;
+    static std::unordered_map <std::string, std::string> variable;
 private:
 };
 

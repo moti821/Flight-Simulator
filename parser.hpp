@@ -10,6 +10,5 @@ public:
     Command* parse(std::vector<std::string>&);
 
 private:
-    std::unordered_map<std::string, Command *> commands;
-    // std::unordered_map<std::string, std::string> variable;
+    std::unordered_map <std::string, Command *> commands;
 };

@@ -14,7 +14,7 @@ private:
     /* Null, because instance will be initialized on demand. */
     static Client *instance;
     Client();
-    int sock = 0;//, valread = 0;
-    // char buffer[1024] = {0};
+    int sock = 0, valread = 0;
+    char buffer[1024] = {0};
     // char* command = "set controls/flight/rudder -1\r\n";
 };

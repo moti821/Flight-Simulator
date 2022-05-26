@@ -11,9 +11,8 @@
 int main()
 {
     Lexer *lex = Lexer::get_instance();
-    lex->opneInstructionsFile("file_text.txt");
+    lex->opneInstructionsFile("file_text1.txt");
     std::vector<std::vector<std::string>> data = lex->getAllLines();
-    // DataBase::get_instance()->create_H_map();
 
     Parser pars;
     for (int i = 0; i < data.size(); i++)
@@ -21,8 +20,7 @@ int main()
         std::vector<std::string> line = data[i];
         Command* command = pars.parse(line);
         command->do_command(i);
-        if(line[0] == "while")
-        {
+        if(line[0] == "while"){
             WhileCommand whil;
             i = whil.next_line();
         }

@@ -212,7 +212,9 @@ public:
         Evaluate expression 
         Note: Expression is expected to be in infix form.
      */
-    double calculate (const std::string& expr) { 
+    double calculate (const std::string& a) { 
+        std::string expr = "0";
+        expr += a;
         ShuntingYard shunting(expr);
         RPNExpression rpn = shunting.to_rpn ();
         flush ();

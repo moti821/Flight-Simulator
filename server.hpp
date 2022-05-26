@@ -16,7 +16,7 @@ class Server
 public:
     static Server *getInstance(std::vector<std::string> lin);
     void opne_connect();
-    std::vector<double> split_buffer(std::string);
+    void split_buffer(std::string);
     static std::array<std::string, 36> name_to_number;
 
 
