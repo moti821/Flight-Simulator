@@ -96,25 +96,23 @@ void Server::split_buffer(std::string buffer)
     }
     else
     {
-      // if(buffer[i] == '-')
-      // {
-      //   oun_value.push_back(0);
-      // }
       oun_value.push_back(buffer[i]);
     }
   }
+
   double value = 0;
   value = std::stod(oun_value);
   values.push_back(value);
   oun_value = "";
-  std::cout << "from server size of vulues is: " << values.size() << std::endl;
+
+  // std::cout << "from server size of vulues is: " << values.size() << std::endl;
   for (int j = 0; j < serv->name_to_number.size() ; j++)
   {
     std::string name = serv->name_to_number[j];
     if(serv->name_to_number[j] != "")
     {
       D_B->symbol_table[serv->name_to_number[j]] = values[j];
-      std::cout << "name printing in server from name to number: " << name << " " << D_B->symbol_table[serv->name_to_number[j]] << std::endl;
+      // std::cout << "name printing in server from name to number: " << name << " " << D_B->symbol_table[serv->name_to_number[j]] << std::endl;
     }
   }
 
