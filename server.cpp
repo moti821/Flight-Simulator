@@ -85,10 +85,12 @@ void Server::split_buffer(std::string buffer)
   std::vector<double> values;
   values.clear();
   std::string oun_value;
+  // std::cout << "start values" << std::endl;
   for(int i=0 ; i < buffer.size() ; i++)
   {
     if(buffer[i] == ',')
     {
+      // std::cout << "from server, the value is: " << oun_value << std::endl; 
       double value = 0;
       value = std::stod(oun_value);
       values.push_back(value);
@@ -114,6 +116,7 @@ void Server::split_buffer(std::string buffer)
       D_B->symbol_table[serv->name_to_number[j]] = values[j];
       // std::cout << "name printing in server from name to number: " << name << " " << D_B->symbol_table[serv->name_to_number[j]] << std::endl;
     }
+    // std::cout << "from server, the value of " << serv->name_to_number[j] << "is: " << values[j] << std::endl;
   }
 
   return;
