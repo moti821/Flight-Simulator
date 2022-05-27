@@ -21,8 +21,7 @@ int main()
         Command* command = pars.parse(line);
         command->do_command(i);
         if(line[0] == "while"){
-            WhileCommand whil;
-            i = whil.next_line();
+            i = DataBase::get_instance()->s;
         }
     }
 }

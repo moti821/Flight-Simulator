@@ -58,7 +58,7 @@ void VarCommand::do_command(int i)
     }
     else{
         DataBase::get_instance()->symbol_table[name_var] = DataBase::get_instance()->symbol_table[line_command[3]];
-        std::cout << "from var command value of "<< name_var <<" is: " << DataBase::get_instance()->symbol_table[name_var] << std::endl;
+        // std::cout << "from var command value of "<< name_var <<" is: " << DataBase::get_instance()->symbol_table[name_var] << std::endl;
     }
 }
 
@@ -101,12 +101,12 @@ void EqualCommand::do_command(int i)
                 }
                 k--;
                 double value = DataBase::get_instance()->symbol_table[var_str];
-                std::cout << "from equle command value of "<< var_str <<" in symbool table is: " << value << std::endl; 
+                // std::cout << "from equle command value of "<< var_str <<" in symbool table is: " << value << std::endl; 
                 new_string += std::to_string(value);                
             }
             else{
             new_string += string_line[k];
-            std::cout << "and new string is: " << new_string << std::endl;
+            // std::cout << "and new string is: " << new_string << std::endl;
             }
              
         }        
@@ -114,7 +114,7 @@ void EqualCommand::do_command(int i)
         Calculator c;
         std::string result = std::to_string(c.calculate(new_string));
         VarCommand* var = new VarCommand;
-    std::cout << "From the equal command, the line is: " << line_command[0] << std::endl;
+    // std::cout << "From the equal command, the line is: " << line_command[0] << std::endl;
         std::string massage = "set " + var->variable[line_command[0]] + " " + result + "\r\n";
         char* mass = &massage[0];
         // std::string x;
@@ -129,7 +129,7 @@ void EqualCommand::do_command(int i)
 
 void WhileCommand::do_command(int i)
 {
-    std::cout << "Hi I am a whil command" << std::endl;
+    // std::cout << "Hi I am a whil command" << std::endl;
     std::vector<std::string> line_command = lex->getLine(i);
 
 
@@ -152,11 +152,13 @@ void WhileCommand::do_command(int i)
         }
         
     }
+    DataBase::get_instance()->s = while_lines.back()+1;
+    while_lines.clear();
 };
 
 void WhileCommand::create_vec_line(int i)
 {
-    std::cout << "now I creat vec line" << std::endl;
+    // std::cout << "now I creat vec line" << std::endl;
     i++;
     while(lex->getLine(i)[0] != "}")
     {
@@ -165,14 +167,16 @@ void WhileCommand::create_vec_line(int i)
     }
 }
 
-int WhileCommand::next_line()
-{
-    return while_lines.back()+1;
-}
+// int WhileCommand::next_line()
+// {
+//     int a = while_lines.back();
+//     std::cout << "a is: " << std::endl;
+//     return a++;
+// }
 
 void PrintCommand::do_command(int i)
 {
-    std::cout << "This is the printer" << std::endl;
+    // std::cout << "This is the printer" << std::endl;
     std::vector<std::string> line_command = lex->getLine(i);
     std::string name = line_command[1];
     if (name[0] == '"')

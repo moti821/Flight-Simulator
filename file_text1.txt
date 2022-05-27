@@ -37,9 +37,13 @@ autostart = 1
 print "engine is warming..."
 print rpm
 rpm = 800
+sleep 2000
+while rpm < 750 {
+	print rpm
+}
 print rpm
-sleep 10000
 print "let's fly"
+sleep 1000
 var h0 = heading
 print h0
 breaks = 0
@@ -53,6 +57,3 @@ print alt
 sleep 250
 }
 print "done"
-while rpm < 750 {
-	print rpm
-}
