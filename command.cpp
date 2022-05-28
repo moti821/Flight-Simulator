@@ -54,7 +54,7 @@ void VarCommand::do_command(int i)
         
         variable[name_var] = path_command;
         DataBase::get_instance()->symbol_table[name_var] = 0;
-        std::cout << "from var command vlue of " << name_var << " is: " << DataBase::get_instance()->symbol_table[name_var] << std::endl;
+        // std::cout << "from var command vlue of " << name_var << " is: " << DataBase::get_instance()->symbol_table[name_var] << std::endl;
     }
     else{
         DataBase::get_instance()->symbol_table[name_var] = DataBase::get_instance()->symbol_table[line_command[3]];
@@ -72,9 +72,9 @@ void EqualCommand::do_command(int i)
         std::string new_string;
         for (int j = 0; j < line_command[0].size(); j++)
         {
-            if(std::isalpha(line_command[0][i]))
+            if(std::isalpha(line_command[0][j]))
             {
-                new_string += line_command[0][i];
+                new_string += line_command[0][j];
             }
         }
         line_command[0] = new_string; 

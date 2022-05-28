@@ -216,8 +216,7 @@ public:
         // std::cout << expr << std::endl;
         if(expr[0] == '-' && expr[1] == '-')
         {
-            expr.erase(0,1);
-            expr.erase(0,1);
+            expr.erase(0,2);
             expr = '+' + expr;
         }
         // std::cout << expr << std::endl;

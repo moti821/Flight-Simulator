@@ -40,6 +40,7 @@ rpm = 800
 sleep 2000
 while rpm < 750 {
 	print rpm
+	sleep 250
 }
 print rpm
 print "let's fly"
@@ -50,10 +51,11 @@ breaks = 0
 sleep 10000
 throttle = 1
 while alt < 1000 {
-rudder = (h0 - heading)/20
-aileron = - roll / 70
-elevator = pitch/50
-print alt
-sleep 250
+	rudder = 0.07
+	aileron = - roll / 70
+	elevator = pitch/50
+	print alt
+	sleep 250
 }
 print "done"
+rudder = (h0 - heading)/20

@@ -24,6 +24,7 @@ Command *Parser::parse(std::vector<std::string> &line)
             }
         }
         line[0] = new_string; 
+        // std::cout << new_string <<std::endl;
     }
     Command *next_command = commands[line[0]];
     if(next_command == (Command*)0x0)
