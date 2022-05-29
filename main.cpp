@@ -6,8 +6,6 @@
 #include "command.hpp"
 #include "data_base.hpp"
 
-
-
 int main()
 {
     Lexer *lex = Lexer::get_instance();
@@ -19,9 +17,6 @@ int main()
     {
         std::vector<std::string> line = data[i];
         Command* command = pars.parse(line);
-        command->do_command(i);
-        if(line[0] == "while"){
-            i = DataBase::get_instance()->s;
-        }
+        i = command->do_command(i);
     }
 }

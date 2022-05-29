@@ -14,22 +14,25 @@ Parser::Parser()
 Command *Parser::parse(std::vector<std::string> &line)
 {
     if(!std::isalpha(line[0][0]))
-    {
-        std::string new_string;
-        for (int i = 0; i < line[0].size(); i++)
-        {
-            if(std::isalpha(line[0][i]))
-            {
-                new_string += line[0][i];
-            }
-        }
-        line[0] = new_string; 
-        // std::cout << new_string <<std::endl;
-    }
+    line[0] = delete_space(line[0]);
+
     Command *next_command = commands[line[0]];
+
     if(next_command == (Command*)0x0)
-    {
-        next_command = commands["equal"];
-    }
+    next_command = commands["equal"];
+
     return next_command;
 };
+
+std::string Parser::delete_space(std::string original)
+{
+        std::string new_string;
+        for (int i = 0; i < original.size(); i++)
+        {
+            if(!std::isalpha(original[i]))
+            {
+                original.erase(0,1);
+            }
+        }
+        return original; 
+}

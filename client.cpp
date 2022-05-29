@@ -40,7 +40,6 @@ void Client::connect(int port, std::string ip)
 void Client::send(char* command)
 {
     ::send(sock , command , strlen(command) , 0 );
-    // std::cout<<"from clint command is: " << command <<std::endl;
     valread = read( sock , buffer, 1024);
     // std::cout<< buffer <<std::endl;
     return;

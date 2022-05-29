@@ -213,12 +213,25 @@ public:
         Note: Expression is expected to be in infix form.
      */
     double calculate (std::string& expr) { 
-        // std::cout << expr << std::endl;
-        if(expr[0] == '-' && expr[1] == '-')
+        for (int i = 0; i < expr.size(); i++)
         {
-            expr.erase(0,2);
-            expr = '+' + expr;
+            if(expr[0] == '-' && expr[1] == '-')
+            {
+                expr.erase(0,2);
+                expr = '+' + expr;
+            }
+            else if (expr[i] == '-' && expr[i+1] == '-')
+            {
+                expr = expr.substr(0,i-1) + '+' + expr.substr(i+2,expr.size());
+            }   
+            else if (expr[i] == '-' && expr[i+2] == '-')
+            {
+                expr = expr.substr(0,i-1) + '+' + expr.substr(i+2,expr.size());
+            }
+                     
+            
         }
+        
         // std::cout << expr << std::endl;
                 
         expr = "0" + expr;

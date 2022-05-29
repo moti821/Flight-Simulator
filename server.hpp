@@ -9,6 +9,7 @@
 #include <unistd.h>     // For read
 #include <cstring>
 #include "data_base.hpp"
+#include "lexer.hpp"
 
 
 class Server
@@ -16,15 +17,14 @@ class Server
 public:
     static Server *getInstance(std::vector<std::string> lin);
     void opne_connect();
-    void split_buffer(std::string);
     static std::array<std::string, 36> name_to_number;
 
 
 private:
     static Server *instance;
     Server(std::vector<std::string>);
-    // std::vector<std::string> paths;
     std::thread t1;
+    std::thread t2;
 
     int port = 5400;
     int rhythm;

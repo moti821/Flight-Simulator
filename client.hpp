@@ -16,5 +16,4 @@ private:
     Client();
     int sock = 0, valread = 0;
     char buffer[1024] = {0};
-    // char* command = "set controls/flight/rudder -1\r\n";
 };

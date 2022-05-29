@@ -3,7 +3,7 @@
 
 DataBase* DataBase::instance = 0;
 std::unordered_map<std::string, double> DataBase::symbol_table;
-int DataBase::s;
+
 
 DataBase* DataBase::get_instance()
 {

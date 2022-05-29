@@ -2,6 +2,7 @@
 
 Server *Server::instance = 0;
 void get_data(int connection, int sockfd);
+void open_simulator();
 DataBase* D_B = DataBase::get_instance();
 std::array<std::string, 36> Server::name_to_number;
 Server* serv = Server::getInstance({""});
@@ -48,6 +49,7 @@ void Server::opne_connect()
     std::cout << "Failed to listen on socket. errno: " << errno << std::endl;
     exit(EXIT_FAILURE);
   }
+  t1 = std::thread(open_simulator);
   // Grab a connection from the queue
   auto addrlen = sizeof(sockaddr);
   connection = accept(sockfd, (struct sockaddr *)&sockaddr, (socklen_t *)&addrlen);
@@ -57,11 +59,15 @@ void Server::opne_connect()
     exit(EXIT_FAILURE);
   }
 
-  t1 = std::thread(get_data,connection, sockfd);
+  t2 = std::thread(get_data,connection, sockfd);
   
   return;
 }
 
+void open_simulator()
+{
+  system("fgfs --telnet=socket,in,10,127.0.0.1,5402,tcp --generic=socket,out,10,127.0.0.1,5400,tcp,generic_small");
+}
 
 void get_data(int connection, int sockfd)
 {
@@ -70,54 +76,21 @@ void get_data(int connection, int sockfd)
     // Read from the connection
     char buffer[1024] = {0};
     auto bytesRead = read(connection, buffer, 1024);
-    // std::vector<double> values = 
-    Server::getInstance({""})->split_buffer(buffer);
-    // std::cout << "finish" << std::endl;
+
+    std::vector<std::string> values;
+    Lexer::get_instance()->split_string(buffer, ',', values);
+
+    for (int j = 0; j < serv->name_to_number.size() ; j++)
+    {
+      std::string name = serv->name_to_number[j];
+      if(name != "")
+      {
+        D_B->symbol_table[name] = std::stod(values[j]);
+      }
+    }
   }
 
   // Close the connections
   close(connection);
   close(sockfd);
 };
-
-void Server::split_buffer(std::string buffer)
-{
-  std::vector<double> values;
-  values.clear();
-  std::string oun_value;
-  // std::cout << "start values" << std::endl;
-  for(int i=0 ; i < buffer.size() ; i++)
-  {
-    if(buffer[i] == ',')
-    {
-      // std::cout << "from server, the value is: " << oun_value << std::endl; 
-      double value = 0;
-      value = std::stod(oun_value);
-      values.push_back(value);
-      oun_value = "";
-    }
-    else
-    {
-      oun_value.push_back(buffer[i]);
-    }
-  }
-
-  double value = 0;
-  value = std::stod(oun_value);
-  values.push_back(value);
-  oun_value = "";
-
-  // std::cout << "from server size of vulues is: " << values.size() << std::endl;
-  for (int j = 0; j < serv->name_to_number.size() ; j++)
-  {
-    std::string name = serv->name_to_number[j];
-    if(serv->name_to_number[j] != "")
-    {
-      D_B->symbol_table[serv->name_to_number[j]] = values[j];
-      // std::cout << "name printing in server from name to number: " << name << " " << D_B->symbol_table[serv->name_to_number[j]] << std::endl;
-    }
-    // std::cout << "from server, the value of " << serv->name_to_number[j] << "is: " << values[j] << std::endl;
-  }
-
-  return;
-}
