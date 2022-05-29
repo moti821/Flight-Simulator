@@ -55,7 +55,7 @@ public:
     void create_vec_line(int);
     int next_line();
 private:
-    std::vector<int> while_lines;
+    std::vector<int> vec_lines_to_while;
 };
 
 

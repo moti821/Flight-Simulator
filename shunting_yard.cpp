@@ -227,15 +227,10 @@ public:
             else if (expr[i] == '-' && expr[i+2] == '-')
             {
                 expr = expr.substr(0,i-1) + '+' + expr.substr(i+2,expr.size());
-            }
-                     
-            
-        }
-        
-        // std::cout << expr << std::endl;
-                
+            }            
+        }        
         expr = "0" + expr;
-        // expr += a;
+
         ShuntingYard shunting(expr);
         RPNExpression rpn = shunting.to_rpn ();
         flush ();
@@ -253,9 +248,3 @@ public:
 
 template< class T > 
 void Token< T >::evaluate (Calculator * c) { c->consume (token_); }
-
-// int main () {
-//     Calculator c;
-//     std::cout << c.calculate ("2.8864+2.1136") << std::endl;
-//     return 0;
-// }

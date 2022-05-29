@@ -36,3 +36,27 @@ std::string Parser::delete_space(std::string original)
         }
         return original; 
 }
+
+std::string find_word_convert_to_value(std::string str_line)
+{
+    std::string new_string;
+    for (int k = 0; k < str_line.size(); k++)
+    {
+        if(isalpha(str_line[k]))
+        {
+            std::string var_str;
+            while (isalpha(str_line[k]) || isdigit(str_line[k]))
+            {
+                var_str += str_line[k];
+                k++;
+            }
+            k--;
+            double value = DataBase::get_instance()->symbol_table[var_str];
+            new_string += std::to_string(value);                
+        }
+        else{
+        new_string += str_line[k];
+        }             
+    }   
+    return new_string;   
+}
