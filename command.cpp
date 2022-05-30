@@ -20,7 +20,7 @@ int OpenServerCommand::do_command(int i)
         std::cout << "Enter port and rhythm" << std::endl;
         return 0;
     }
-    Server::getInstance(line_command)->opne_connect();
+    Server::getInstance(line_command)->open_connect();
     return i;
 }
 

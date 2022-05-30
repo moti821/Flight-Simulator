@@ -19,7 +19,7 @@ Server *Server::getInstance(std::vector<std::string> lin)
 Server::Server(std::vector<std::string> line_cmd){}
 
 
-void Server::opne_connect()
+void Server::open_connect()
 {
   int sockfd;
   int connection;

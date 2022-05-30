@@ -54,7 +54,6 @@ void Lexer::split_string(std::string const &str, const char delim,
 {
     std::string strings_to_vector;
 
-    // construct a stream from the string
     std::stringstream string_stream(str);
 
     while (std::getline(string_stream, strings_to_vector, delim))
