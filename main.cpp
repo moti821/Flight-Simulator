@@ -6,6 +6,7 @@
 #include "command.hpp"
 #include "data_base.hpp"
 
+
 int main()
 {
     Lexer *lex = Lexer::get_instance();
@@ -13,10 +14,19 @@ int main()
     std::vector<std::vector<std::string>> data = lex->getAllLines();
 
     Parser pars;
+    pars.creat_hash();
     for (int i = 0; i < data.size(); i++)
     {
         std::vector<std::string> line = data[i];
-        Command* command = pars.parse(line);
-        i = command->do_command(i);
+        try
+        {
+            Command* command = pars.parse(line);
+            i = command->do_command(i);
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+        
     }
 }

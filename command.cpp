@@ -1,8 +1,8 @@
 #include <iostream>
 #include "command.hpp"
 #include "client.hpp"
-#include "parser.hpp"
 #include "shunting_yard.cpp"
+#include "parser.hpp"
 #include <any>
 #include <string>
 
@@ -57,10 +57,12 @@ int VarCommand::do_command(int i)
         }
         
         variable[name_var] = path_command;
-        DataBase::get_instance()->symbol_table[name_var] = 0;
+        DataBase::get_instance()->insert_value(name_var, 0);
+        std::cout << "the name is: " << name_var << " and "  <<path_command<< std::endl;
     }
     else{
-        DataBase::get_instance()->symbol_table[name_var] = DataBase::get_instance()->symbol_table[line_command[3]];
+        double value = DataBase::get_instance()->get_value(line_command[3]);
+        DataBase::get_instance()->insert_value(name_var, value);
     }
     return i;
 }
@@ -108,13 +110,21 @@ int WhileCommand::do_command(int i)
     create_vec_line(i);
 
     double condition = std::stod(line_command[3]);
-    while(DataBase::get_instance()->symbol_table[line_command[1]] < condition)
+    while(DataBase::get_instance()->get_value(line_command[1]) < condition)
     {
         for (int i : vec_lines_to_while)
         {
             std::vector<std::string> line_command = lex->getLine(i);
-            Command* command = pars->parse(line_command);
-            command->do_command(i);
+            try
+            {
+                Command* command = pars->parse(line_command);
+                command->do_command(i);
+            }
+            catch(const std::exception& e)
+            {
+                std::cerr << e.what() << '\n';
+            }
+            
         }
         
     }
@@ -149,7 +159,7 @@ int PrintCommand::do_command(int i)
     }
     else if(line_command.size() == 2)
     {
-        std::cout << "The value of " << name << " is: " << DataBase::get_instance()->symbol_table[name] << std::endl;
+        std::cout << "The value of " << name << " is: " << DataBase::get_instance()->get_value(name) << std::endl;
     }
     else{
         std::cout << "EROOR" << std::endl;

@@ -50,16 +50,16 @@ void Lexer::opneInstructionsFile(std::string file_path)
 };
 
 void Lexer::split_string(std::string const &str, const char delim,
-                         std::vector<std::string> &vec_line)
+                         std::vector<std::string> &vec_of_strings)
 {
-    std::string strings_line;
+    std::string strings_to_vector;
 
     // construct a stream from the string
     std::stringstream string_stream(str);
 
-    while (std::getline(string_stream, strings_line, delim))
+    while (std::getline(string_stream, strings_to_vector, delim))
     {
-        vec_line.push_back(strings_line);
+        vec_of_strings.push_back(strings_to_vector);
     }
     return;
 }

@@ -85,7 +85,7 @@ void get_data(int connection, int sockfd)
       std::string name = serv->name_to_number[j];
       if(name != "")
       {
-        D_B->symbol_table[name] = std::stod(values[j]);
+        D_B->insert_value(name, std::stod(values[j]));
       }
     }
   }

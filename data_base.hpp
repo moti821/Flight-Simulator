@@ -1,14 +1,18 @@
 # pragma once
 #include <unordered_map>
 #include <vector>
+#include <mutex>
 
 class DataBase
 {
 public:
     static DataBase* get_instance();
-    static std::unordered_map<std::string, double> symbol_table;
+    void insert_value(std::string var, double value);
+    double get_value(std::string var);
 
 private:
     static DataBase* instance;
     DataBase();
+    
+    static std::unordered_map<std::string, double> symbol_table;
 };

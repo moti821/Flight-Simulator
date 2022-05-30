@@ -1,6 +1,10 @@
 #include "parser.hpp"
+std::unordered_map <std::string, Command *> Parser::commands;
 
-Parser::Parser()
+
+Parser::Parser(){}
+
+void Parser::creat_hash()
 {
     commands["openDataServer"] = new OpenServerCommand;
     commands["connect"] = new ConnectCommand;
@@ -10,6 +14,7 @@ Parser::Parser()
     commands["print"] = new PrintCommand;
     commands["sleep"] = new SleepCommand;
 }
+
 
 Command *Parser::parse(std::vector<std::string> &line)
 {
@@ -37,7 +42,7 @@ std::string Parser::delete_space(std::string original)
         return original; 
 }
 
-std::string find_word_convert_to_value(std::string str_line)
+std::string Parser::find_word_convert_to_value(std::string str_line)
 {
     std::string new_string;
     for (int k = 0; k < str_line.size(); k++)
@@ -51,7 +56,7 @@ std::string find_word_convert_to_value(std::string str_line)
                 k++;
             }
             k--;
-            double value = DataBase::get_instance()->symbol_table[var_str];
+            double value = DataBase::get_instance()->get_value(var_str);
             new_string += std::to_string(value);                
         }
         else{
