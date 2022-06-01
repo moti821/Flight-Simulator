@@ -8,13 +8,14 @@
 
 std::unordered_map<std::string, std::string> VarCommand::variable;
 std::vector<std::string> paths = {"/instrumentation/airspeed-indicator/indicated-speed-kt","/sim/time/warp","/controls/switches/magnetos","/instrumentation/heading-indicator/offset-deg","/instrumentation/altimeter/indicated-altitude-ft","/instrumentation/altimeter/pressure-alt-ft","/instrumentation/attitude-indicator/indicated-pitch-deg","/instrumentation/attitude-indicator/indicated-roll-deg","/instrumentation/attitude-indicator/internal-pitch-deg","/instrumentation/attitude-indicator/internal-roll-deg","/instrumentation/encoder/indicated-altitude-ft","/instrumentation/encoder/pressure-alt-ft","/instrumentation/gps/indicated-altitude-ft","/instrumentation/gps/indicated-ground-speed-kt","/instrumentation/gps/indicated-vertical-speed","/instrumentation/heading-indicator/indicated-heading-deg","/instrumentation/magnetic-compass/indicated-heading-deg","/instrumentation/slip-skid-ball/indicated-slip-skid","/instrumentation/turn-indicator/indicated-turn-rate","/instrumentation/vertical-speed-indicator/indicated-speed-fpm","/controls/flight/aileron","/controls/flight/elevator","/controls/flight/rudder","/controls/flight/flaps","/controls/engines/engine/throttle","/controls/engines/current-engine/throttle","/controls/switches/master-avionics","/controls/switches/starter","/engines/active-engine/auto-start","/controls/flight/speedbrake" ,"/sim/model/c172p/brake-parking","/controls/engines/engine/primer","/controls/engines/current-engine/mixture","/controls/switches/master-bat","/controls/switches/master-alt","/engines/engine/rpm"};
-Lexer* lex = Lexer::get_instance();
 Parser* pars = new Parser;
 VarCommand* var = new VarCommand;
 
+// virtual ~Command(){}
+
 int OpenServerCommand::do_command(int i)
 {
-    std::vector<std::string> line_command = lex->getLine(i);
+    std::vector<std::string> line_command = Lexer::get_instance()->getLine(i);
     if (line_command.size() != 3)
     {
         std::cout << "Enter port and rhythm" << std::endl;
@@ -26,7 +27,7 @@ int OpenServerCommand::do_command(int i)
 
 int ConnectCommand::do_command(int i)
 {
-    std::vector<std::string> line_command = lex->getLine(i);
+    std::vector<std::string> line_command = Lexer::get_instance()->getLine(i);
     if (line_command.size() != 3)
     {
         std::cout << "Enter port ip and command" << std::endl;
@@ -42,7 +43,7 @@ int ConnectCommand::do_command(int i)
 
 int VarCommand::do_command(int i)
 {
-    std::vector<std::string> line_command = lex->getLine(i);
+    std::vector<std::string> line_command = Lexer::get_instance()->getLine(i);
     std::string name_var = line_command[1];
 
     if((line_command[3] == "bind") && (line_command.size() == 5))
@@ -69,7 +70,7 @@ int VarCommand::do_command(int i)
 
 int EqualCommand::do_command(int i)
 {
-    std::vector<std::string> line_command = lex->getLine(i);
+    std::vector<std::string> line_command = Lexer::get_instance()->getLine(i);
 
     if(!std::isalpha(line_command[0][0]))
     line_command[0] = pars->delete_space(line_command[0]); 
@@ -99,7 +100,7 @@ int EqualCommand::do_command(int i)
 
 int WhileCommand::do_command(int i)
 {
-    std::vector<std::string> line_command = lex->getLine(i);
+    std::vector<std::string> line_command = Lexer::get_instance()->getLine(i);
 
     if(line_command.size() != 5)
     {
@@ -114,7 +115,7 @@ int WhileCommand::do_command(int i)
     {
         for (int i : vec_lines_to_while)
         {
-            std::vector<std::string> line_command = lex->getLine(i);
+            std::vector<std::string> line_command = Lexer::get_instance()->getLine(i);
             try
             {
                 Command* command = pars->parse(line_command);
@@ -135,7 +136,7 @@ void WhileCommand::create_vec_line(int i)
 {
     i++;
     vec_lines_to_while.clear();
-    while(lex->getLine(i)[0] != "}")
+    while(Lexer::get_instance()->getLine(i)[0] != "}")
     {
         vec_lines_to_while.push_back(i);
         i++;
@@ -144,7 +145,7 @@ void WhileCommand::create_vec_line(int i)
 
 int PrintCommand::do_command(int i)
 {
-    std::vector<std::string> line_command = lex->getLine(i);
+    std::vector<std::string> line_command = Lexer::get_instance()->getLine(i);
     std::string name = line_command[1];
     if (name[0] == '"')
     {
@@ -169,7 +170,7 @@ int PrintCommand::do_command(int i)
 
 int SleepCommand::do_command(int i)
 {
-    std::vector<std::string> line_command = lex->getLine(i);
+    std::vector<std::string> line_command = Lexer::get_instance()->getLine(i);
     std::cout << "sleeping " << line_command[1] << " milliseconds" << std::endl;
     std::this_thread::sleep_for(std::chrono::milliseconds(std::stoi(line_command[1])));
     return i;

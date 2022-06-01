@@ -16,6 +16,7 @@ class Command
 {
 public:
     virtual int do_command(int) = 0;
+    virtual ~Command(){}
 };
 
 
