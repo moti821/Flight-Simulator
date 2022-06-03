@@ -13,35 +13,37 @@ VarCommand* var = new VarCommand;
 
 // virtual ~Command(){}
 
-int OpenServerCommand::do_command(int i)
+int Command::next_line(){return 0;}
+
+void OpenServerCommand::do_command(int i)
 {
     std::vector<std::string> line_command = Lexer::get_instance()->getLine(i);
     if (line_command.size() != 3)
     {
         std::cout << "Enter port and rhythm" << std::endl;
-        return 0;
+        return;
     }
     Server::getInstance(line_command)->open_connect();
-    return i;
+    return;
 }
 
-int ConnectCommand::do_command(int i)
+void ConnectCommand::do_command(int i)
 {
     std::vector<std::string> line_command = Lexer::get_instance()->getLine(i);
     if (line_command.size() != 3)
     {
         std::cout << "Enter port ip and command" << std::endl;
-        return 0;
+        return;
     }
 
     std::string ip = line_command[1];
     int port = stoi(line_command[2]);
 
     Client::getInstance()->connect(port, ip);
-    return i;
+    return;
 }
 
-int VarCommand::do_command(int i)
+void VarCommand::do_command(int i)
 {
     std::vector<std::string> line_command = Lexer::get_instance()->getLine(i);
     std::string name_var = line_command[1];
@@ -65,10 +67,10 @@ int VarCommand::do_command(int i)
         double value = DataBase::get_instance()->get_value(line_command[3]);
         DataBase::get_instance()->insert_value(name_var, value);
     }
-    return i;
+    return;
 }
 
-int EqualCommand::do_command(int i)
+void EqualCommand::do_command(int i)
 {
     std::vector<std::string> line_command = Lexer::get_instance()->getLine(i);
 
@@ -95,17 +97,17 @@ int EqualCommand::do_command(int i)
     {
         std::cout << "error: the command not found" << std::endl;
     }
-    return i;
+    return;
 }
 
-int WhileCommand::do_command(int i)
+void WhileCommand::do_command(int i)
 {
     std::vector<std::string> line_command = Lexer::get_instance()->getLine(i);
 
     if(line_command.size() != 5)
     {
         std::cout << "error: the condition of while loop not clear" << std::endl;
-        return 0;
+        return;
     }
 
     create_vec_line(i);
@@ -129,7 +131,7 @@ int WhileCommand::do_command(int i)
         }
         
     }
-    return vec_lines_to_while.back()+1;
+    return;
 };
 
 void WhileCommand::create_vec_line(int i)
@@ -143,7 +145,12 @@ void WhileCommand::create_vec_line(int i)
     }
 }
 
-int PrintCommand::do_command(int i)
+int WhileCommand::next_line()
+{
+    return vec_lines_to_while.back()+1;
+}
+
+void PrintCommand::do_command(int i)
 {
     std::vector<std::string> line_command = Lexer::get_instance()->getLine(i);
     std::string name = line_command[1];
@@ -165,14 +172,14 @@ int PrintCommand::do_command(int i)
     else{
         std::cout << "EROOR" << std::endl;
     }
-    return i;    
+    return;    
 }
 
-int SleepCommand::do_command(int i)
+void SleepCommand::do_command(int i)
 {
     std::vector<std::string> line_command = Lexer::get_instance()->getLine(i);
     std::cout << "sleeping " << line_command[1] << " milliseconds" << std::endl;
     std::this_thread::sleep_for(std::chrono::milliseconds(std::stoi(line_command[1])));
-    return i;
+    return;
 }
        

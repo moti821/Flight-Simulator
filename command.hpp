@@ -15,22 +15,23 @@
 class Command
 {
 public:
-    virtual int do_command(int) = 0;
+    virtual void do_command(int) = 0;
     virtual ~Command(){}
+    virtual int next_line();
 };
 
 
 class OpenServerCommand : public Command
 {
 public:
-    virtual int do_command(int);
+    virtual void do_command(int);
 };
 
 
 class ConnectCommand : public Command
 {
 public:
-    virtual int do_command(int);
+    virtual void do_command(int);
 };
 
 
@@ -38,7 +39,7 @@ class VarCommand : public Command
 {
 public:
     VarCommand(){}
-    virtual int do_command(int);
+    virtual void do_command(int);
     static std::unordered_map <std::string, std::string> variable;
 private:
 };
@@ -47,16 +48,17 @@ private:
 class EqualCommand : public Command
 {
 public:
-    virtual int do_command(int);
+    virtual void do_command(int);
 };
 
 
 class WhileCommand : public Command
 {
 public:
-    virtual int do_command(int);
+    virtual void do_command(int);
     void create_vec_line(int);
-    int next_line();
+    virtual int next_line();
+    virtual ~WhileCommand(){}
 private:
     std::vector<int> vec_lines_to_while;
 };
@@ -65,12 +67,12 @@ private:
 class PrintCommand : public Command
 {
 public:
-    virtual int do_command(int);
+    virtual void do_command(int);
 };
 
 
 class SleepCommand : public Command
 {
 public:
-    virtual int do_command(int);
+    virtual void do_command(int);
 };

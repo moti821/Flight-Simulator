@@ -21,7 +21,8 @@ int main()
         try
         {
             Command* command = pars.parse(line);
-            i = command->do_command(i);
+            command->do_command(i);
+            if(line[0] == "while")i = command->next_line();
         }
         catch(const std::exception& e)
         {
