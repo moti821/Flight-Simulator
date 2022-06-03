@@ -4,17 +4,17 @@ std::unordered_map <std::string, Command *> Parser::commands;
 
 Parser::Parser(){}
 
-// ~Parser()
-// {
-//     delete commands["openDataServer"];
-//     delete commands["connect"];
-//     delete commands["var"];
-//     delete commands["equal"];
-//     delete commands["while"];
-//     delete commands["print"];
-//     delete commands["sleep"];
+Parser::~Parser()
+{
+    delete commands["openDataServer"];
+    delete commands["connect"];
+    delete commands["var"];
+    delete commands["equal"];
+    delete commands["while"];
+    delete commands["print"];
+    delete commands["sleep"];
 
-// }
+}
 
 void Parser::creat_hash()
 {
@@ -26,7 +26,6 @@ void Parser::creat_hash()
     commands["print"] = new PrintCommand;
     commands["sleep"] = new SleepCommand;
 }
-
 
 Command *Parser::parse(std::vector<std::string> &line)
 {
