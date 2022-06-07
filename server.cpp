@@ -5,10 +5,9 @@ void get_data(int connection, int sockfd);
 void open_simulator();
 DataBase* D_B = DataBase::get_instance();
 std::array<std::string, 36> Server::name_to_number;
-Server* serv = Server::getInstance({""});
 
 
-Server *Server::getInstance(std::vector<std::string> lin)
+Server *Server::get_instance(std::vector<std::string> lin)
 {
   if (instance == 0)
   {
@@ -80,9 +79,9 @@ void get_data(int connection, int sockfd)
     std::vector<std::string> values;
     Lexer::get_instance()->split_string(buffer, ',', values);
 
-    for (int j = 0; j < serv->name_to_number.size() ; j++)
+    for (int j = 0; j < Server::get_instance({""})->name_to_number.size() ; j++)
     {
-      std::string name = serv->name_to_number[j];
+      std::string name = Server::get_instance({""})->name_to_number[j];
       if(name != "")
       {
         D_B->insert_value(name, std::stod(values[j]));

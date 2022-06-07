@@ -8,11 +8,12 @@ public:
     Parser();
     ~Parser();
     
-    void creat_hash();
-    Command* parse(int line);
-    std::string delete_space(std::string);
-    std::string find_word_convert_to_value(std::string str_line);
+    void create_hash();
+    void parse();
+    Command* get_command(std::string name_command);
+    static std::vector<int> vec_lines_to_while;
 
 private:
+    void create_vec_line(int);
     static std::unordered_map <std::string, Command *> commands;
 };

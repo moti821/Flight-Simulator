@@ -15,7 +15,7 @@
 class Server
 {
 public:
-    static Server *getInstance(std::vector<std::string> lin);
+    static Server *get_instance(std::vector<std::string> lin);
     void open_connect();
     static std::array<std::string, 36> name_to_number;
 

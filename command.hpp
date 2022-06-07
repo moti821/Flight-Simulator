@@ -9,15 +9,11 @@
 #include "data_base.hpp"
 
 
-
-
-
 class Command
 {
 public:
     virtual void do_command(int) = 0;
     virtual ~Command(){}
-    virtual int next_line();
 };
 
 
@@ -40,7 +36,6 @@ public:
 class VarCommand : public Command
 {
 public:
-    // VarCommand(){}
     virtual void do_command(int);
     virtual ~VarCommand(){}
     static std::unordered_map <std::string, std::string> variable;
@@ -53,6 +48,7 @@ class EqualCommand : public Command
 public:
     virtual void do_command(int);
     virtual ~EqualCommand(){}
+    std::string find_word_convert_to_value(std::string str_line);
 };
 
 
@@ -60,11 +56,8 @@ class WhileCommand : public Command
 {
 public:
     virtual void do_command(int);
-    void create_vec_line(int);
-    virtual int next_line();
     virtual ~WhileCommand(){}
 private:
-    std::vector<int> vec_lines_to_while;
 };
 
 

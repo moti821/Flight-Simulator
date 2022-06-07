@@ -1,4 +1,3 @@
-// #include <iostream>
 #include <any>
 #include <string>
 #include "command.hpp"
@@ -12,8 +11,6 @@ Parser* pars = new Parser;
 VarCommand* var = new VarCommand;
 
 
-int Command::next_line(){return 0;}
-
 void OpenServerCommand::do_command(int i)
 {
     std::vector<std::string> line_command = Lexer::get_instance()->getLine(i);
@@ -22,7 +19,7 @@ void OpenServerCommand::do_command(int i)
         std::cout << "Enter port and rhythm" << std::endl;
         return;
     }
-    Server::getInstance(line_command)->open_connect();
+    Server::get_instance(line_command)->open_connect();
     return;
 }
 
@@ -55,7 +52,7 @@ void VarCommand::do_command(int i)
         for (int j = 0; j < paths.size(); j++)
         {
             if(paths[j] == path_command)
-            Server::getInstance({""})->name_to_number[j] = name_var;
+            Server::get_instance({""})->name_to_number[j] = name_var;
         }
         
         variable[name_var] = path_command;
@@ -73,9 +70,6 @@ void EqualCommand::do_command(int i)
 {
     std::vector<std::string> line_command = Lexer::get_instance()->getLine(i);
 
-    if(!std::isalpha(line_command[0][0]))
-    line_command[0] = pars->delete_space(line_command[0]); 
-
     if(line_command[1] == "=")
     {
         std::string string_line;
@@ -84,19 +78,43 @@ void EqualCommand::do_command(int i)
             string_line += line_command[j];
         }
 
-        std::string new_string = pars->find_word_convert_to_value(string_line);
+        std::string new_string = find_word_convert_to_value(string_line);
 
         Calculator c;
         std::string result = std::to_string(c.calculate(new_string));
-        std::string massage = "set " + var->variable[line_command[0]] + " " + result + "\r\n";
-        char* mass = &massage[0];
-        Client::getInstance()->send(mass);        
+        std::string message_is = "set " + var->variable[line_command[0]] + " " + result + "\r\n";
+        char* message = &message_is[0];
+        Client::getInstance()->send(message);        
     }
     else
     {
         std::cout << "error: the command not found" << std::endl;
     }
     return;
+}
+
+std::string EqualCommand::find_word_convert_to_value(std::string str_line)
+{
+    std::string new_string;
+    for (int k = 0; k < str_line.size(); k++)
+    {
+        if(isalpha(str_line[k]))
+        {
+            std::string var_str;
+            while (isalpha(str_line[k]) || isdigit(str_line[k]))
+            {
+                var_str += str_line[k];
+                k++;
+            }
+            k--;
+            double value = DataBase::get_instance()->get_value(var_str);
+            new_string += std::to_string(value);                
+        }
+        else{
+        new_string += str_line[k];
+        }             
+    }   
+    return new_string;   
 }
 
 void WhileCommand::do_command(int i)
@@ -109,17 +127,15 @@ void WhileCommand::do_command(int i)
         return;
     }
 
-    create_vec_line(i);
-
     double condition = std::stod(line_command[3]);
     while(DataBase::get_instance()->get_value(line_command[1]) < condition)
     {
-        for (int i : vec_lines_to_while)
+        for (int i : pars->vec_lines_to_while)
         {
             std::vector<std::string> line_command = Lexer::get_instance()->getLine(i);
             try
             {
-                Command* command = pars->parse(line_command);
+                Command* command = pars->get_command(line_command[0]);
                 command->do_command(i);
             }
             catch(const std::exception& e)
@@ -132,22 +148,6 @@ void WhileCommand::do_command(int i)
     }
     return;
 };
-
-void WhileCommand::create_vec_line(int i)
-{
-    i++;
-    vec_lines_to_while.clear();
-    while(Lexer::get_instance()->getLine(i)[0] != "}")
-    {
-        vec_lines_to_while.push_back(i);
-        i++;
-    }
-}
-
-int WhileCommand::next_line()
-{
-    return vec_lines_to_while.back()+1;
-}
 
 void PrintCommand::do_command(int i)
 {

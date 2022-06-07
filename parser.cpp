@@ -1,6 +1,7 @@
 #include "parser.hpp"
 
 std::unordered_map <std::string, Command *> Parser::commands;
+std::vector<int> Parser::vec_lines_to_while;
 
 
 Parser::Parser(){}
@@ -17,7 +18,7 @@ Parser::~Parser()
 
 }
 
-void Parser::creat_hash()
+void Parser::create_hash()
 {
     commands["openDataServer"] = new OpenServerCommand;
     commands["connect"] = new ConnectCommand;
@@ -28,53 +29,42 @@ void Parser::creat_hash()
     commands["sleep"] = new SleepCommand;
 }
 
-Command *Parser::parse(int i)
+void Parser::parse()
 {
-    std::vector<std::string> line = Lexer::get_instance()->getLine(i);
-    if(!std::isalpha(line[0][0]))
-    line[0] = delete_space(line[0]);
+    for (int i = 0; i < Lexer::get_instance()->get_size(); i++)
+    {
+        std::vector<std::string> line = Lexer::get_instance()->getLine(i);
+        Command *next_command = commands[line[0]];
+        if(!next_command) next_command = commands["equal"];
 
-    Command *next_command = commands[line[0]];
+        if (line[0] == "while")
+        {
+            create_vec_line(i);
+            next_command->do_command(i);
+            i = vec_lines_to_while.back()+1;
+        }      
+        else next_command->do_command(i);
 
-    if(next_command == (Command*)0x0)
-    next_command = commands["equal"];
+    }    
 
-    return next_command;
+    return ;
 };
 
-std::string Parser::delete_space(std::string original)
+
+void Parser::create_vec_line(int i)
 {
-        std::string new_string;
-        for (int i = 0; i < original.size(); i++)
-        {
-            if(!std::isalpha(original[i]))
-            {
-                original.erase(0,1);
-            }
-        }
-        return original; 
+    i++;
+    vec_lines_to_while.clear();
+    while(Lexer::get_instance()->getLine(i)[0] != "}")
+    {
+        vec_lines_to_while.push_back(i);
+        i++;
+    }
 }
 
-std::string Parser::find_word_convert_to_value(std::string str_line)
+Command* Parser::get_command(std::string name_command)
 {
-    std::string new_string;
-    for (int k = 0; k < str_line.size(); k++)
-    {
-        if(isalpha(str_line[k]))
-        {
-            std::string var_str;
-            while (isalpha(str_line[k]) || isdigit(str_line[k]))
-            {
-                var_str += str_line[k];
-                k++;
-            }
-            k--;
-            double value = DataBase::get_instance()->get_value(var_str);
-            new_string += std::to_string(value);                
-        }
-        else{
-        new_string += str_line[k];
-        }             
-    }   
-    return new_string;   
+    Command *next_command = commands[name_command];
+    if(!next_command) next_command = commands["equal"];
+    return next_command;
 }

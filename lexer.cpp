@@ -31,6 +31,9 @@ void Lexer::opneInstructionsFile(std::string file_path)
 
         split_string(string_line, delim, vec_line);
 
+        if(!std::isalpha(vec_line[0][0]) && vec_line[0][0] != '}')
+        vec_line[0] = delete_space(vec_line[0]);
+
         all_lines.push_back(vec_line);
 
         if (string_line == "-1")
@@ -72,12 +75,23 @@ std::vector<std::string> Lexer::getLine(int i)
     return all_lines[i];
 }
 
-const std::vector<std::vector<std::string>>& Lexer::getAllLines()
+int Lexer::get_size()
 {
     if (all_lines.size() < 1)
     {
         std::cout << "The data not exzist" << std::endl;
     };
-    const std::vector<std::vector<std::string>>& lines = all_lines;
-    return lines;
+    return all_lines.size();
+}
+
+std::string Lexer::delete_space(std::string original)
+{
+        for (int i = 0; i < original.size(); i++)
+        {
+            if(!std::isalpha(original[i]))
+            {
+                original.erase(0,1);
+            }
+        }
+        return original; 
 }
