@@ -9,7 +9,7 @@ public:
     ~Parser();
     
     void creat_hash();
-    Command* parse(std::vector<std::string>&);
+    Command* parse(int line);
     std::string delete_space(std::string);
     std::string find_word_convert_to_value(std::string str_line);
 

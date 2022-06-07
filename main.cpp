@@ -9,9 +9,8 @@
 
 int main()
 {
-    Lexer *lex = Lexer::get_instance();
-    lex->opneInstructionsFile("file_text1.txt");
-    std::vector<std::vector<std::string>> data = lex->getAllLines();
+    Lexer::get_instance()->opneInstructionsFile("file_text1.txt");
+    const std::vector<std::vector<std::string>>& data = Lexer::get_instance()->getAllLines();
 
     Parser pars;
     pars.creat_hash();
@@ -20,7 +19,7 @@ int main()
         std::vector<std::string> line = data[i];
         try
         {
-            Command* command = pars.parse(line);
+            Command* command = pars.parse(i);
             command->do_command(i);
             if(line[0] == "while")i = command->next_line();
         }

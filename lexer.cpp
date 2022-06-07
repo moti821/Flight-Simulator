@@ -72,11 +72,12 @@ std::vector<std::string> Lexer::getLine(int i)
     return all_lines[i];
 }
 
-std::vector<std::vector<std::string>> Lexer::getAllLines()
+const std::vector<std::vector<std::string>>& Lexer::getAllLines()
 {
     if (all_lines.size() < 1)
     {
         std::cout << "The data not exzist" << std::endl;
     };
-    return all_lines;
+    const std::vector<std::vector<std::string>>& lines = all_lines;
+    return lines;
 }

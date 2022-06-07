@@ -1,4 +1,5 @@
 #include "parser.hpp"
+
 std::unordered_map <std::string, Command *> Parser::commands;
 
 
@@ -27,8 +28,9 @@ void Parser::creat_hash()
     commands["sleep"] = new SleepCommand;
 }
 
-Command *Parser::parse(std::vector<std::string> &line)
+Command *Parser::parse(int i)
 {
+    std::vector<std::string> line = Lexer::get_instance()->getLine(i);
     if(!std::isalpha(line[0][0]))
     line[0] = delete_space(line[0]);
 

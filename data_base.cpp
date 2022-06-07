@@ -1,4 +1,3 @@
-# include <iostream>
 #include "data_base.hpp"
 
 DataBase* DataBase::instance = 0;
