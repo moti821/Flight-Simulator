@@ -2,17 +2,12 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
-#include <thread>
-#include <chrono>
-#include "server.hpp"
-#include "lexer.hpp"
-#include "data_base.hpp"
 
 
 class Command
 {
 public:
-    virtual void do_command(int) = 0;
+    virtual void do_command(int num_line) = 0;
     virtual ~Command(){}
 };
 
@@ -20,7 +15,7 @@ public:
 class OpenServerCommand : public Command
 {
 public:
-    virtual void do_command(int);
+    virtual void do_command(int num_line);
     virtual ~OpenServerCommand(){}
 };
 
@@ -28,7 +23,7 @@ public:
 class ConnectCommand : public Command
 {
 public:
-    virtual void do_command(int);
+    virtual void do_command(int num_line);
     virtual ~ConnectCommand(){}
 };
 
@@ -36,7 +31,7 @@ public:
 class VarCommand : public Command
 {
 public:
-    virtual void do_command(int);
+    virtual void do_command(int num_line);
     virtual ~VarCommand(){}
     static std::unordered_map <std::string, std::string> variable;
 private:
@@ -46,7 +41,7 @@ private:
 class EqualCommand : public Command
 {
 public:
-    virtual void do_command(int);
+    virtual void do_command(int num_line);
     virtual ~EqualCommand(){}
     std::string find_word_convert_to_value(std::string str_line);
 };
@@ -55,7 +50,7 @@ public:
 class WhileCommand : public Command
 {
 public:
-    virtual void do_command(int);
+    virtual void do_command(int num_line);
     virtual ~WhileCommand(){}
 private:
 };
@@ -64,7 +59,7 @@ private:
 class PrintCommand : public Command
 {
 public:
-    virtual void do_command(int);
+    virtual void do_command(int num_line);
     virtual ~PrintCommand(){}
 };
 
@@ -72,6 +67,6 @@ public:
 class SleepCommand : public Command
 {
 public:
-    virtual void do_command(int);
+    virtual void do_command(int num_line);
     virtual ~SleepCommand(){}
 };

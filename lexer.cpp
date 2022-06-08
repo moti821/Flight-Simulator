@@ -2,6 +2,9 @@
 #include <sstream>
 #include "lexer.hpp"
 
+std::vector<std::vector<std::string>> Lexer::all_lines;
+
+
 Lexer* Lexer::instance = 0;
 
 Lexer* Lexer::get_instance()
@@ -13,7 +16,6 @@ Lexer* Lexer::get_instance()
     return instance;
 }
 
-std::vector<std::vector<std::string>> Lexer::all_lines;
 
 void Lexer::opneInstructionsFile(std::string file_path)
 {
@@ -36,10 +38,6 @@ void Lexer::opneInstructionsFile(std::string file_path)
 
         all_lines.push_back(vec_line);
 
-        if (string_line == "-1")
-        {
-            break;
-        }
     };
     fs.close();
 
@@ -84,14 +82,14 @@ int Lexer::get_size()
     return all_lines.size();
 }
 
-std::string Lexer::delete_space(std::string original)
+std::string Lexer::delete_space(std::string to_fix)
 {
-        for (int i = 0; i < original.size(); i++)
+        for (int i = 0; i < to_fix.size(); i++)
         {
-            if(!std::isalpha(original[i]))
+            if(!std::isalpha(to_fix[i]))
             {
-                original.erase(0,1);
+                to_fix.erase(0,1);
             }
         }
-        return original; 
+        return to_fix; 
 }

@@ -1,3 +1,4 @@
+#include <mutex>
 #include "data_base.hpp"
 
 DataBase* DataBase::instance = 0;
@@ -12,7 +13,9 @@ DataBase* DataBase::get_instance()
     };
     return instance;
 }
+
 DataBase::DataBase(){}
+
 
 void DataBase::insert_value(std::string var, double value)
 {

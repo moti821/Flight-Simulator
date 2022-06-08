@@ -1,4 +1,14 @@
+#include <netinet/in.h> // For sockaddr_in
+#include <string>
+#include <thread>
+#include <sys/socket.h> // For socket functions
+#include <cstdlib>      // For exit() and EXIT_FAILURE
+#include <iostream>     // For cout
+#include <unistd.h>     // For read
+#include <cstring>
+#include "data_base.hpp"
 #include "server.hpp"
+#include "lexer.hpp"
 
 Server *Server::instance = 0;
 void get_data(int connection, int sockfd);

@@ -1,4 +1,6 @@
+#include <vector>
 #include "parser.hpp"
+#include "lexer.hpp"
 
 std::unordered_map <std::string, Command *> Parser::commands;
 std::vector<int> Parser::vec_lines_to_while;
@@ -51,14 +53,14 @@ void Parser::parse()
 };
 
 
-void Parser::create_vec_line(int i)
+void Parser::create_vec_line(int num_line)
 {
-    i++;
+    num_line++;
     vec_lines_to_while.clear();
-    while(Lexer::get_instance()->getLine(i)[0] != "}")
+    while(Lexer::get_instance()->getLine(num_line)[0] != "}")
     {
-        vec_lines_to_while.push_back(i);
-        i++;
+        vec_lines_to_while.push_back(num_line);
+        num_line++;
     }
 }
 

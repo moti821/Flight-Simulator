@@ -1,14 +1,13 @@
 #pragma once
-#include <vector>
-#include <string>
+
 
 class Client
 {
 public:
     /* Static access method. */
     static Client *getInstance();
-    void connect(int, std::string);
-    void send(char *);
+    void connect(int port, std::string ip);
+    void send(char * message);
 
 private:
     /* Null, because instance will be initialized on demand. */

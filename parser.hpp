@@ -14,6 +14,6 @@ public:
     static std::vector<int> vec_lines_to_while;
 
 private:
-    void create_vec_line(int);
+    void create_vec_line(int num_line_to_start);
     static std::unordered_map <std::string, Command *> commands;
 };

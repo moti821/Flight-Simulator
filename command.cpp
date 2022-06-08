@@ -1,8 +1,12 @@
 #include <any>
 #include <string>
+#include <thread>
 #include "command.hpp"
+#include "lexer.hpp"
+#include "server.hpp"
 #include "client.hpp"
 #include "parser.hpp"
+#include "data_base.hpp"
 #include "shunting_yard.cpp"
 
 std::unordered_map<std::string, std::string> VarCommand::variable;
