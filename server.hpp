@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <thread>
 
 
 class Server
@@ -8,6 +9,7 @@ public:
     static Server *get_instance(std::vector<std::string> lin);
     void open_connect();
     static std::array<std::string, 36> name_to_number;
+    void open_simulator();
 
 
 private:

@@ -8,6 +8,7 @@ int main()
     Lexer::get_instance()->opneInstructionsFile("file_text1.txt");
 
     Parser* pars = new Parser();
-    pars->create_hash();
     pars->parse();
+
+    delete pars;
 }

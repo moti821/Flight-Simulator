@@ -2,11 +2,19 @@
 #include "parser.hpp"
 #include "lexer.hpp"
 
-std::unordered_map <std::string, Command *> Parser::commands;
 std::vector<int> Parser::vec_lines_to_while;
 
 
-Parser::Parser(){}
+Parser::Parser()
+{
+    commands["openDataServer"] = new OpenServerCommand;
+    commands["connect"] = new ConnectCommand;
+    commands["var"] = new VarCommand;
+    commands["equal"] = new EqualCommand;
+    commands["while"] = new WhileCommand;
+    commands["print"] = new PrintCommand;
+    commands["sleep"] = new SleepCommand;
+}
 
 Parser::~Parser()
 {
@@ -17,18 +25,6 @@ Parser::~Parser()
     delete commands["while"];
     delete commands["print"];
     delete commands["sleep"];
-
-}
-
-void Parser::create_hash()
-{
-    commands["openDataServer"] = new OpenServerCommand;
-    commands["connect"] = new ConnectCommand;
-    commands["var"] = new VarCommand;
-    commands["equal"] = new EqualCommand;
-    commands["while"] = new WhileCommand;
-    commands["print"] = new PrintCommand;
-    commands["sleep"] = new SleepCommand;
 }
 
 void Parser::parse()
@@ -46,12 +42,9 @@ void Parser::parse()
             i = vec_lines_to_while.back()+1;
         }      
         else next_command->do_command(i);
-
     }    
-
     return ;
 };
-
 
 void Parser::create_vec_line(int num_line)
 {

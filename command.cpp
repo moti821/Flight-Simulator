@@ -11,8 +11,6 @@
 
 std::unordered_map<std::string, std::string> VarCommand::variable;
 std::vector<std::string> paths = {"/instrumentation/airspeed-indicator/indicated-speed-kt","/sim/time/warp","/controls/switches/magnetos","/instrumentation/heading-indicator/offset-deg","/instrumentation/altimeter/indicated-altitude-ft","/instrumentation/altimeter/pressure-alt-ft","/instrumentation/attitude-indicator/indicated-pitch-deg","/instrumentation/attitude-indicator/indicated-roll-deg","/instrumentation/attitude-indicator/internal-pitch-deg","/instrumentation/attitude-indicator/internal-roll-deg","/instrumentation/encoder/indicated-altitude-ft","/instrumentation/encoder/pressure-alt-ft","/instrumentation/gps/indicated-altitude-ft","/instrumentation/gps/indicated-ground-speed-kt","/instrumentation/gps/indicated-vertical-speed","/instrumentation/heading-indicator/indicated-heading-deg","/instrumentation/magnetic-compass/indicated-heading-deg","/instrumentation/slip-skid-ball/indicated-slip-skid","/instrumentation/turn-indicator/indicated-turn-rate","/instrumentation/vertical-speed-indicator/indicated-speed-fpm","/controls/flight/aileron","/controls/flight/elevator","/controls/flight/rudder","/controls/flight/flaps","/controls/engines/engine/throttle","/controls/engines/current-engine/throttle","/controls/switches/master-avionics","/controls/switches/starter","/engines/active-engine/auto-start","/controls/flight/speedbrake" ,"/sim/model/c172p/brake-parking","/controls/engines/engine/primer","/controls/engines/current-engine/mixture","/controls/switches/master-bat","/controls/switches/master-alt","/engines/engine/rpm"};
-Parser* pars = new Parser;
-VarCommand* var = new VarCommand;
 
 
 void OpenServerCommand::do_command(int i)
@@ -76,6 +74,7 @@ void EqualCommand::do_command(int i)
 
     if(line_command[1] == "=")
     {
+        VarCommand var;
         std::string string_line;
         for (int j = 2; j < line_command.size(); j++)
         {
@@ -86,14 +85,12 @@ void EqualCommand::do_command(int i)
 
         Calculator c;
         std::string result = std::to_string(c.calculate(new_string));
-        std::string message_is = "set " + var->variable[line_command[0]] + " " + result + "\r\n";
+        std::string message_is = "set " + var.variable[line_command[0]] + " " + result + "\r\n";
         char* message = &message_is[0];
         Client::getInstance()->send(message);        
     }
-    else
-    {
-        std::cout << "error: the command not found" << std::endl;
-    }
+    else { std::cout << "error: the command not found" << std::endl; }
+
     return;
 }
 
@@ -114,9 +111,7 @@ std::string EqualCommand::find_word_convert_to_value(std::string str_line)
             double value = DataBase::get_instance()->get_value(var_str);
             new_string += std::to_string(value);                
         }
-        else{
-        new_string += str_line[k];
-        }             
+        else{ new_string += str_line[k]; }             
     }   
     return new_string;   
 }
@@ -131,6 +126,7 @@ void WhileCommand::do_command(int i)
         return;
     }
 
+    Parser* pars = new Parser();
     double condition = std::stod(line_command[3]);
     while(DataBase::get_instance()->get_value(line_command[1]) < condition)
     {
@@ -145,11 +141,10 @@ void WhileCommand::do_command(int i)
             catch(const std::exception& e)
             {
                 std::cerr << e.what() << '\n';
-            }
-            
-        }
-        
+            }            
+        }        
     }
+    delete pars;
     return;
 };
 
@@ -172,9 +167,7 @@ void PrintCommand::do_command(int i)
     {
         std::cout << "The value of " << name << " is: " << DataBase::get_instance()->get_value(name) << std::endl;
     }
-    else{
-        std::cout << "EROOR" << std::endl;
-    }
+    else { std::cout << "EROOR" << std::endl; }
     return;    
 }
 

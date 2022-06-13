@@ -1,6 +1,5 @@
 #include <netinet/in.h> // For sockaddr_in
 #include <string>
-#include <thread>
 #include <sys/socket.h> // For socket functions
 #include <cstdlib>      // For exit() and EXIT_FAILURE
 #include <iostream>     // For cout
@@ -12,8 +11,6 @@
 
 Server *Server::instance = 0;
 void get_data(int connection, int sockfd);
-void open_simulator();
-DataBase* D_B = DataBase::get_instance();
 std::array<std::string, 36> Server::name_to_number;
 
 
@@ -58,7 +55,7 @@ void Server::open_connect()
     std::cout << "Failed to listen on socket. errno: " << errno << std::endl;
     exit(EXIT_FAILURE);
   }
-  t1 = std::thread(open_simulator);
+  t1 = std::thread(&Server::open_simulator, this);
   // Grab a connection from the queue
   auto addrlen = sizeof(sockaddr);
   connection = accept(sockfd, (struct sockaddr *)&sockaddr, (socklen_t *)&addrlen);
@@ -73,7 +70,7 @@ void Server::open_connect()
   return;
 }
 
-void open_simulator()
+void Server::open_simulator()
 {
   system("fgfs --telnet=socket,in,10,127.0.0.1,5402,tcp --generic=socket,out,10,127.0.0.1,5400,tcp,generic_small");
 }
@@ -94,7 +91,7 @@ void get_data(int connection, int sockfd)
       std::string name = Server::get_instance({""})->name_to_number[j];
       if(name != "")
       {
-        D_B->insert_value(name, std::stod(values[j]));
+        DataBase::get_instance()->insert_value(name, std::stod(values[j]));
       }
     }
   }

@@ -15,5 +15,5 @@ public:
 
 private:
     void create_vec_line(int num_line_to_start);
-    static std::unordered_map <std::string, Command *> commands;
+    std::unordered_map <std::string, Command *> commands;
 };
