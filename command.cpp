@@ -127,8 +127,8 @@ void WhileCommand::do_command(int i)
     }
 
     Parser* pars = new Parser();
-    double condition = std::stod(line_command[3]);
-    while(DataBase::get_instance()->get_value(line_command[1]) < condition)
+    double val_condition = std::stod(line_command[3]);
+    while(expression(DataBase::get_instance()->get_value(line_command[1]), line_command[2], val_condition))
     {
         for (int i : pars->vec_lines_to_while)
         {
@@ -148,6 +148,18 @@ void WhileCommand::do_command(int i)
     delete pars;
     return;
 };
+
+bool WhileCommand::expression(double x, std::string operat, double y)
+{
+    if     ((operat ==  "<") && (x < y))  return true;
+    else if((operat ==  ">") && (x > y))  return true;
+    else if((operat == ">=") && (x >= y)) return true;
+    else if((operat == "<=") && (x <= y)) return true;
+    else if((operat == "==") && (x == y)) return true;
+    else if((operat == "!=") && (x != y)) return true;
+    
+    return false;
+}
 
 void PrintCommand::do_command(int i)
 {

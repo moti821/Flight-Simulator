@@ -84,12 +84,9 @@ int Lexer::get_size()
 
 std::string Lexer::delete_space(std::string to_fix)
 {
-        for (int i = 0; i < to_fix.size(); i++)
+        while(!std::isalpha(to_fix[0]))
         {
-            if(!std::isalpha(to_fix[i]))
-            {
-                to_fix.erase(0,1);
-            }
+            to_fix.erase(0,1);
         }
         return to_fix; 
 }

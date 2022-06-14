@@ -51,6 +51,7 @@ class WhileCommand : public Command
 {
 public:
     void do_command(int num_line);
+    bool expression(double value, std::string operat, double condition);
     ~WhileCommand(){}
 private:
 };
