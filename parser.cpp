@@ -40,20 +40,18 @@ void Parser::parse()
             create_vec_line(i);
             next_command->do_command(i);
             i = vec_lines_to_while.back()+1;
-        }      
-        else{
-            try
-            {
-                next_command->do_command(i);
-            }
-            catch(const std::exception& e)
-            {
-                std::cerr << e.what() << '\n';
-                continue;
-            }
-            
-
-        } 
+            continue;
+        }
+         
+        try
+        {
+            next_command->do_command(i);
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+            continue;
+        }
     }    
     return ;
 };

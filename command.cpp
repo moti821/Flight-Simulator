@@ -141,6 +141,7 @@ void WhileCommand::do_command(int i)
             catch(const std::exception& e)
             {
                 std::cerr << e.what() << '\n';
+                continue;
             }            
         }        
     }
@@ -167,7 +168,7 @@ void PrintCommand::do_command(int i)
     {
         std::cout << "The value of " << name << " is: " << DataBase::get_instance()->get_value(name) << std::endl;
     }
-    else { std::cout << "EROOR" << std::endl; }
+    else { std::cout << "EROOR: the ptinting not found" << std::endl; }
     return;    
 }
 
