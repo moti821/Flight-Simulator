@@ -37,10 +37,8 @@ autostart = 1
 print "engine is warming..."
 print rpm
 rpm = 800
-sleep 500
 while rpm < 750 {
 	print rpm
-	sleep 250
 }
 print "let's fly"
 var h0 = heading
@@ -48,7 +46,7 @@ print h0
 breaks = 0
 sleep 10000
 throttle = 1
-while alt < 2000 {
+while alt < 1000 {
 	rudder = (h0 - heading)/20
 	aileron = - roll / 70
 	elevator = pitch/50

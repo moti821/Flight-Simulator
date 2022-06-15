@@ -5,7 +5,10 @@
 
 int main()
 {
-    Lexer::get_instance()->opneInstructionsFile("file_text1.txt");
+    std::cout << "Enter path of instrction file" << std::endl;
+    std::string path_file;
+    std::cin >> path_file;
+    Lexer::get_instance()->opneInstructionsFile(path_file);
 
     Parser* pars = new Parser();
     pars->parse();
