@@ -7,7 +7,7 @@
 class Command
 {
 public:
-    virtual void do_command(int num_line) = 0;
+    virtual void do_command(std::vector<std::string>& line) = 0;
     virtual ~Command(){}
 };
 
@@ -15,24 +15,21 @@ public:
 class OpenServerCommand : public Command
 {
 public:
-    void do_command(int num_line);
-    ~OpenServerCommand(){}
+    void do_command(std::vector<std::string>& line);
 };
 
 
 class ConnectCommand : public Command
 {
 public:
-    void do_command(int num_line);
-    ~ConnectCommand(){}
+    void do_command(std::vector<std::string>& line);
 };
 
 
 class VarCommand : public Command
 {
 public:
-    void do_command(int num_line);
-    ~VarCommand(){}
+    void do_command(std::vector<std::string>& line);
     static std::unordered_map <std::string, std::string> variable;
 private:
 };
@@ -41,8 +38,7 @@ private:
 class EqualCommand : public Command
 {
 public:
-    void do_command(int num_line);
-    ~EqualCommand(){}
+    void do_command(std::vector<std::string>& line);
     std::string find_word_convert_to_value(std::string str_line);
 };
 
@@ -50,9 +46,8 @@ public:
 class WhileCommand : public Command
 {
 public:
-    void do_command(int num_line);
+    void do_command(std::vector<std::string>& line);
     bool expression(double value, std::string operat, double condition);
-    ~WhileCommand(){}
 private:
 };
 
@@ -60,14 +55,12 @@ private:
 class PrintCommand : public Command
 {
 public:
-    void do_command(int num_line);
-    ~PrintCommand(){}
+    void do_command(std::vector<std::string>& line);
 };
 
 
 class SleepCommand : public Command
 {
 public:
-    void do_command(int num_line);
-    ~SleepCommand(){}
+    void do_command(std::vector<std::string>& line);
 };

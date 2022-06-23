@@ -38,14 +38,14 @@ void Parser::parse()
         if (line[0] == "while")
         {
             create_vec_line(i);
-            next_command->do_command(i);
+            next_command->do_command(line);
             i = vec_lines_to_while.back()+1;
             continue;
         }
          
         try
         {
-            next_command->do_command(i);
+            next_command->do_command(line);
         }
         catch(const std::exception& e)
         {
