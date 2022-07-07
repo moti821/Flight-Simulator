@@ -8,7 +8,6 @@ public:
     Parser();
     ~Parser();
     
-    void create_hash();
     void parse();
     Command* get_command(std::string name_command);
     static std::vector<int> vec_lines_to_while;

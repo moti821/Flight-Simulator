@@ -13,7 +13,7 @@ std::unordered_map<std::string, std::string> VarCommand::variable;
 std::vector<std::string> paths = {"/instrumentation/airspeed-indicator/indicated-speed-kt","/sim/time/warp","/controls/switches/magnetos","/instrumentation/heading-indicator/offset-deg","/instrumentation/altimeter/indicated-altitude-ft","/instrumentation/altimeter/pressure-alt-ft","/instrumentation/attitude-indicator/indicated-pitch-deg","/instrumentation/attitude-indicator/indicated-roll-deg","/instrumentation/attitude-indicator/internal-pitch-deg","/instrumentation/attitude-indicator/internal-roll-deg","/instrumentation/encoder/indicated-altitude-ft","/instrumentation/encoder/pressure-alt-ft","/instrumentation/gps/indicated-altitude-ft","/instrumentation/gps/indicated-ground-speed-kt","/instrumentation/gps/indicated-vertical-speed","/instrumentation/heading-indicator/indicated-heading-deg","/instrumentation/magnetic-compass/indicated-heading-deg","/instrumentation/slip-skid-ball/indicated-slip-skid","/instrumentation/turn-indicator/indicated-turn-rate","/instrumentation/vertical-speed-indicator/indicated-speed-fpm","/controls/flight/aileron","/controls/flight/elevator","/controls/flight/rudder","/controls/flight/flaps","/controls/engines/engine/throttle","/controls/engines/current-engine/throttle","/controls/switches/master-avionics","/controls/switches/starter","/engines/active-engine/auto-start","/controls/flight/speedbrake" ,"/sim/model/c172p/brake-parking","/controls/engines/engine/primer","/controls/engines/current-engine/mixture","/controls/switches/master-bat","/controls/switches/master-alt","/engines/engine/rpm"};
 
 
-void OpenServerCommand::do_command(std::vector<std::string>& line_command)
+void OpenServerCommand::do_command(const std::vector<std::string>& line_command)
 {
     if (line_command.size() != 3)
     {
@@ -24,7 +24,7 @@ void OpenServerCommand::do_command(std::vector<std::string>& line_command)
     return;
 }
 
-void ConnectCommand::do_command(std::vector<std::string>& line_command)
+void ConnectCommand::do_command(const std::vector<std::string>& line_command)
 {
     if (line_command.size() != 3)
     {
@@ -39,7 +39,7 @@ void ConnectCommand::do_command(std::vector<std::string>& line_command)
     return;
 }
 
-void VarCommand::do_command(std::vector<std::string>& line_command)
+void VarCommand::do_command(const std::vector<std::string>& line_command)
 {
     std::string name_var = line_command[1];
 
@@ -65,7 +65,7 @@ void VarCommand::do_command(std::vector<std::string>& line_command)
     return;
 }
 
-void EqualCommand::do_command(std::vector<std::string>& line_command)
+void EqualCommand::do_command(const std::vector<std::string>& line_command)
 {
     if(line_command[1] == "=")
     {
@@ -111,7 +111,7 @@ std::string EqualCommand::find_word_convert_to_value(std::string str_line)
     return new_string;   
 }
 
-void WhileCommand::do_command(std::vector<std::string>& line_command)
+void WhileCommand::do_command(const std::vector<std::string>& line_command)
 {
     if(line_command.size() != 5)
     {
@@ -154,7 +154,7 @@ bool WhileCommand::expression(double x, std::string operat, double y)
     return false;
 }
 
-void PrintCommand::do_command(std::vector<std::string>& line_command)
+void PrintCommand::do_command(const std::vector<std::string>& line_command)
 {
     std::string name = line_command[1];
     if (name[0] == '"')
@@ -176,7 +176,7 @@ void PrintCommand::do_command(std::vector<std::string>& line_command)
     return;    
 }
 
-void SleepCommand::do_command(std::vector<std::string>& line_command)
+void SleepCommand::do_command(const std::vector<std::string>& line_command)
 {
     std::cout << "sleeping " << line_command[1] << " milliseconds" << std::endl;
     std::this_thread::sleep_for(std::chrono::milliseconds(std::stoi(line_command[1])));
