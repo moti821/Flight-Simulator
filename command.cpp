@@ -119,16 +119,16 @@ void WhileCommand::do_command(const std::vector<std::string>& line_command)
         return;
     }
 
-    Parser* pars = new Parser();
+    Parser pars{};
     double val_condition = std::stod(line_command[3]);
     while(expression(DataBase::get_instance()->get_value(line_command[1]), line_command[2], val_condition))
     {
-        for (int i : pars->vec_lines_to_while)
+        for (int i : pars.vec_lines_to_while)
         {
             std::vector<std::string> line_command = Lexer::get_instance()->getLine(i);
             try
             {
-                Command* command = pars->get_command(line_command[0]);
+                Command* command = pars.get_command(line_command[0]);
                 command->do_command(line_command);
             }
             catch(const std::exception& e)
@@ -138,7 +138,6 @@ void WhileCommand::do_command(const std::vector<std::string>& line_command)
             }            
         }        
     }
-    delete pars;
     return;
 };
 

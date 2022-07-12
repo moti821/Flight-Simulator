@@ -10,8 +10,7 @@ int main()
     std::cin >> path_file;
     Lexer::get_instance()->opneInstructionsFile(path_file);
 
-    Parser pars{}; //= new Parser();
+    Parser pars{}; 
     pars.parse();
 
-    // delete pars;
 }
