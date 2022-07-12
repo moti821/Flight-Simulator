@@ -162,6 +162,7 @@ void PrintCommand::do_command(const std::vector<std::string>& line_command)
         {
             for(int j = 2; j<line_command.size(); j++)
             {
+                name += ' ';
                 name += line_command[j]; 
             }
         }
