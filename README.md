@@ -18,3 +18,5 @@ Install the Flightrear simulator https://www.flightgear.org/
   -Copy the `generic_small.xml` to path `/usr/share/games/flightgear/Protocol/`
 
   -Run `make` in yuor Terminal, and run `./main`
+  
+  -Enter the file path `flight_instructions.txt`
