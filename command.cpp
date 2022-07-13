@@ -125,7 +125,7 @@ void WhileCommand::do_command(const std::vector<std::string>& line_command)
     {
         for (int i : pars.vec_lines_to_while)
         {
-            std::vector<std::string> line_command = Lexer::get_instance()->getLine(i);
+            std::vector<std::string> line_command = Lexer::get_instance()->get_line(i);
             try
             {
                 Command* command = pars.get_command(line_command[0]);

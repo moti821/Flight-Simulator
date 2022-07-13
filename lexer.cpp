@@ -17,7 +17,7 @@ Lexer* Lexer::get_instance()
 }
 
 
-void Lexer::opneInstructionsFile(std::string file_path)
+void Lexer::opne_instructions_file(std::string file_path)
 {
 
     std::string string_line;
@@ -64,7 +64,7 @@ void Lexer::split_string(std::string const &str, const char delim,
     return;
 }
 
-std::vector<std::string> Lexer::getLine(int i)
+std::vector<std::string> Lexer::get_line(int i)
 {
     if (all_lines[i].size() < 1)
     {

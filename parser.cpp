@@ -31,7 +31,7 @@ void Parser::parse()
 {
     for (int i = 0; i < Lexer::get_instance()->get_size(); i++)
     {
-        std::vector<std::string> line = Lexer::get_instance()->getLine(i);
+        std::vector<std::string> line = Lexer::get_instance()->get_line(i);
         Command *next_command = commands[line[0]];
         if(!next_command) next_command = commands["equal"];
 
@@ -60,7 +60,7 @@ void Parser::create_vec_line(int num_line)
 {
     num_line++;
     vec_lines_to_while.clear();
-    while(Lexer::get_instance()->getLine(num_line)[0] != "}")
+    while(Lexer::get_instance()->get_line(num_line)[0] != "}")
     {
         vec_lines_to_while.push_back(num_line);
         num_line++;
