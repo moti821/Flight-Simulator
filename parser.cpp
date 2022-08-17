@@ -27,8 +27,10 @@ Parser::~Parser()
     delete commands["sleep"];
 }
 
-void Parser::parse()
+void Parser::parse(std::string path_file)
 {
+Lexer::get_instance()->open_instructions_file(path_file);
+
     for (int i = 0; i < Lexer::get_instance()->get_size(); i++)
     {
         std::vector<std::string> line = Lexer::get_instance()->get_line(i);

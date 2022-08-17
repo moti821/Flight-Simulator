@@ -5,14 +5,14 @@ CFLAGS = -pthread
 main:	$(TARGET)
 		$(CC) -o main $(TARGET) $(CFLAGS)
 
-main.o: main.cpp lexer.cpp lexer.hpp parser.cpp parser.hpp
+main.o: main.cpp parser.cpp parser.hpp
 		$(CC) -c main.cpp
-
-lexer.o: lexer.cpp lexer.hpp
-		$(CC) -c lexer.cpp 
 
 parser.o: parser.cpp parser.hpp lexer.cpp lexer.hpp command.cpp command.hpp
 		$(CC) -c parser.cpp
+
+lexer.o: lexer.cpp lexer.hpp
+		$(CC) -c lexer.cpp 
 
 command.o: command.cpp command.hpp lexer.cpp lexer.hpp parser.cpp parser.hpp server.cpp server.hpp client.cpp client.hpp data_base.cpp data_base.hpp shunting_yard.cpp
 		$(CC) -c command.cpp $(CFLAGS)

@@ -8,7 +8,7 @@ public:
     Parser();
     ~Parser();
     
-    void parse();
+    void parse(std::string path);
     Command* get_command(std::string name_command);
     static std::vector<int> vec_lines_to_while;
 

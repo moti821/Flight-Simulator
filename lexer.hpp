@@ -7,7 +7,7 @@ class Lexer
 {
 public:
     static Lexer* get_instance();
-    void opne_instructions_file(std::string file_path);
+    void open_instructions_file(std::string file_path);
     std::vector<std::string> get_line(int num_line);
     int get_size();
     void split_string(std::string const &str, const char delimiter,

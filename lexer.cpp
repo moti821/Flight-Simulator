@@ -17,7 +17,7 @@ Lexer* Lexer::get_instance()
 }
 
 
-void Lexer::opne_instructions_file(std::string file_path)
+void Lexer::open_instructions_file(std::string file_path)
 {
 
     std::string string_line;
