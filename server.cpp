@@ -64,8 +64,6 @@ void Server::open_connect()
   }
 
   t2 = std::thread(get_data, connection, sockfd);
-
-  return;
 }
 
 void Server::open_simulator()

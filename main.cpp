@@ -3,11 +3,14 @@
 
 int main(int argc, char **argv)
 {
-    if (argc == 2)
+    if (argc != 2)
     {
-        Parser pars{};
-        pars.parse(argv[1]);
-    }
-    else
         std::cout << "Enter the path of instruction file" << std::endl;
+        return 0;
+    }
+
+    Parser *pars = new Parser();
+    pars->parse(argv[1]);
+    delete pars;
+    return 1;
 }

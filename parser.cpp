@@ -58,7 +58,6 @@ void Parser::parse(std::string path_file)
         }
     }
     delete lex;
-    return;
 }
 
 void Parser::create_vec_line(int num_line, Lexer *lex)

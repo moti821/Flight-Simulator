@@ -28,8 +28,6 @@ void Lexer::open_instructions_file(std::string file_path)
     fs.close();
 
     // print_all_vectors();
-
-    return;
 }
 
 std::vector<std::string> Lexer::get_line(int i)

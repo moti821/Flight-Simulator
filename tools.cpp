@@ -14,5 +14,4 @@ void split_string(std::string const &str, const char delim,
     {
         vec_of_strings.push_back(strings_to_vector);
     }
-    return;
 }

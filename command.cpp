@@ -20,7 +20,6 @@ void OpenServerCommand::do_command(const std::vector<std::string> &line_command)
         return;
     }
     Server::get_instance(line_command)->open_connect();
-    return;
 }
 
 void ConnectCommand::do_command(const std::vector<std::string> &line_command)
@@ -35,7 +34,6 @@ void ConnectCommand::do_command(const std::vector<std::string> &line_command)
     int port = stoi(line_command[2]);
 
     Client::getInstance()->connect(port, ip);
-    return;
 }
 
 void VarCommand::do_command(const std::vector<std::string> &line_command)
@@ -62,7 +60,6 @@ void VarCommand::do_command(const std::vector<std::string> &line_command)
         double value = DataBase::get_instance()->get_value(line_command[3]);
         DataBase::get_instance()->insert_value(name_var, value);
     }
-    return;
 }
 
 void EqualCommand::do_command(const std::vector<std::string> &line_command)
@@ -88,8 +85,6 @@ void EqualCommand::do_command(const std::vector<std::string> &line_command)
     {
         std::cout << "error: the command not found" << std::endl;
     }
-
-    return;
 }
 
 std::string EqualCommand::find_word_convert_to_value(std::string str_line)
@@ -146,7 +141,6 @@ void WhileCommand::do_command(const std::vector<std::string> &line_command)
         }
     }
     delete lex;
-    return;
 }
 
 bool WhileCommand::expression(double x, std::string operat, double y)
@@ -190,12 +184,10 @@ void PrintCommand::do_command(const std::vector<std::string> &line_command)
     {
         std::cout << "EROOR: the ptinting not found" << std::endl;
     }
-    return;
 }
 
 void SleepCommand::do_command(const std::vector<std::string> &line_command)
 {
     std::cout << "sleeping " << line_command[1] << " milliseconds" << std::endl;
     std::this_thread::sleep_for(std::chrono::milliseconds(std::stoi(line_command[1])));
-    return;
 }

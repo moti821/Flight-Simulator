@@ -41,6 +41,4 @@ void Client::send(char *command)
 {
     ::send(sock, command, strlen(command), 0);
     valread = read(sock, buffer, 1024);
-    // std::cout<< buffer <<std::endl;
-    return;
 }
