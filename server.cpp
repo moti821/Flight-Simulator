@@ -7,12 +7,12 @@
 #include <cstring>
 #include "data_base.hpp"
 #include "server.hpp"
-#include "lexer.hpp"
+#include "tools.hpp"
 
 Server *Server::instance = 0;
 void get_data(int connection, int sockfd);
+// void split_string(std::string const &str, const char delimiter, std::vector<std::string> &vec_line);
 std::array<std::string, 36> Server::name_to_number;
-
 
 Server *Server::get_instance(std::vector<std::string> lin)
 {
@@ -21,9 +21,8 @@ Server *Server::get_instance(std::vector<std::string> lin)
     instance = new Server(lin);
   };
   return instance;
-};
+}
 Server::Server(std::vector<std::string> line_cmd){}
-
 
 void Server::open_connect()
 {
@@ -84,7 +83,7 @@ void get_data(int connection, int sockfd)
     auto bytesRead = read(connection, buffer, 1024);
 
     std::vector<std::string> values;
-    Lexer::get_instance()->split_string(buffer, ',', values);
+    split_string(buffer, ',', values);
 
     for (int j = 0; j < Server::get_instance({""})->name_to_number.size() ; j++)
     {
@@ -99,4 +98,4 @@ void get_data(int connection, int sockfd)
   // Close the connections
   close(connection);
   close(sockfd);
-};
+}

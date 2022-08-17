@@ -56,7 +56,7 @@ Lexer::get_instance()->open_instructions_file(path_file);
         }
     }    
     return ;
-};
+}
 
 void Parser::create_vec_line(int num_line)
 {

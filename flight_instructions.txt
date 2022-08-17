@@ -21,7 +21,7 @@ var aileron = bind "/controls/flight/aileron"
 var elevator = bind "/controls/flight/elevator"
 var alt = bind "/instrumentation/altimeter/indicated-altitude-ft"
 var rpm = bind "/engines/engine/rpm"
-sleep 40000
+sleep 45000
 print "let's start"
 sleep 1000
 magnetos = 3

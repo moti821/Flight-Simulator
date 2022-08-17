@@ -1,9 +1,8 @@
 #include <fstream>
-#include <sstream>
 #include "lexer.hpp"
+#include "tools.hpp"
 
 std::vector<std::vector<std::string>> Lexer::all_lines;
-
 
 Lexer* Lexer::instance = 0;
 
@@ -16,7 +15,6 @@ Lexer* Lexer::get_instance()
     return instance;
 }
 
-
 void Lexer::open_instructions_file(std::string file_path)
 {
 
@@ -25,11 +23,11 @@ void Lexer::open_instructions_file(std::string file_path)
 
     fs.open(file_path, std::fstream::in);
 
+    const char delim = ' ';
     while (std::getline(fs, string_line))
     {
 
         std::vector<std::string> vec_line;
-        const char delim = ' ';
 
         split_string(string_line, delim, vec_line);
 
@@ -41,26 +39,8 @@ void Lexer::open_instructions_file(std::string file_path)
     };
     fs.close();
 
-    // for( int i=0 ; i < all_lines.size() ; i++ ){
-    //     for( int j=0 ; j < all_lines[i].size() ; j++){
-    //         std::cout << all_lines[i][j] << " ";
-    //     }
-    //     std::cout << std::endl;
-    // }
-    return;
-};
+    // print_all_vectors();
 
-void Lexer::split_string(std::string const &str, const char delim,
-                         std::vector<std::string> &vec_of_strings)
-{
-    std::string strings_to_vector;
-
-    std::stringstream string_stream(str);
-
-    while (std::getline(string_stream, strings_to_vector, delim))
-    {
-        vec_of_strings.push_back(strings_to_vector);
-    }
     return;
 }
 
@@ -84,9 +64,19 @@ int Lexer::get_size()
 
 std::string Lexer::delete_space(std::string to_fix)
 {
-        while(!std::isalpha(to_fix[0]))
-        {
-            to_fix.erase(0,1);
+    while(!std::isalpha(to_fix[0]))
+    {
+        to_fix.erase(0,1);
+    }
+    return to_fix; 
+}
+
+void Lexer::print_all_vectors()
+{
+    for( int i=0 ; i < all_lines.size() ; i++ ){
+        for( int j=0 ; j < all_lines[i].size() ; j++){
+            std::cout << all_lines[i][j] << " ";
         }
-        return to_fix; 
+        std::cout << std::endl;
+    }
 }

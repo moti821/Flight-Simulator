@@ -2,7 +2,6 @@
 #include <vector>
 #include <thread>
 
-
 class Server
 {
 public:
@@ -10,7 +9,6 @@ public:
     void open_connect();
     static std::array<std::string, 36> name_to_number;
     void open_simulator();
-
 
 private:
     static Server *instance;

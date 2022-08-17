@@ -139,7 +139,7 @@ void WhileCommand::do_command(const std::vector<std::string>& line_command)
         }        
     }
     return;
-};
+}
 
 bool WhileCommand::expression(double x, std::string operat, double y)
 {
@@ -181,5 +181,4 @@ void SleepCommand::do_command(const std::vector<std::string>& line_command)
     std::cout << "sleeping " << line_command[1] << " milliseconds" << std::endl;
     std::this_thread::sleep_for(std::chrono::milliseconds(std::stoi(line_command[1])));
     return;
-}
-       
+}       

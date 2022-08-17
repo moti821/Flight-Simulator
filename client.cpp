@@ -14,7 +14,7 @@ Client* Client::getInstance()
        instance = new Client();
     };
     return instance;       
-};
+}
 Client::Client(){}
 
 void Client::connect(int port, std::string ip)
