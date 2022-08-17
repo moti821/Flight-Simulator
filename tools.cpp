@@ -4,7 +4,7 @@
 #include "tools.hpp"
 
 void split_string(std::string const &str, const char delim,
-                         std::vector<std::string> &vec_of_strings)
+                  std::vector<std::string> &vec_of_strings)
 {
     std::string strings_to_vector;
 

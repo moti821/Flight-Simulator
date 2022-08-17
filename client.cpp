@@ -5,42 +5,42 @@
 #include <string.h>
 #include "client.hpp"
 
+Client *Client::instance = 0;
 
-Client* Client::instance = 0;
-
-Client* Client::getInstance()
+Client *Client::getInstance()
 {
-    if (instance == 0){
-       instance = new Client();
+    if (instance == 0)
+    {
+        instance = new Client();
     };
-    return instance;       
+    return instance;
 }
-Client::Client(){}
+Client::Client() {}
 
 void Client::connect(int port, std::string ip)
 {
-    
+
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
-        std::cout<<"Socket creation error"<<std::endl;
+        std::cout << "Socket creation error" << std::endl;
         return;
     }
 
     struct sockaddr_in serv_addr;
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(port);
-    
+
     if (::connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
     {
-        std::cout<<"Connection Failed"<<std::endl;
+        std::cout << "Connection Failed" << std::endl;
         return;
     }
 }
 
-void Client::send(char* command)
+void Client::send(char *command)
 {
-    ::send(sock , command , strlen(command) , 0 );
-    valread = read( sock , buffer, 1024);
+    ::send(sock, command, strlen(command), 0);
+    valread = read(sock, buffer, 1024);
     // std::cout<< buffer <<std::endl;
     return;
 }

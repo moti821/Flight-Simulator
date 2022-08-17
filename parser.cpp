@@ -1,9 +1,9 @@
 #include <vector>
 #include "parser.hpp"
 #include "lexer.hpp"
+#include "command.hpp"
 
 std::vector<int> Parser::vec_lines_to_while;
-
 
 Parser::Parser()
 {
@@ -29,49 +29,53 @@ Parser::~Parser()
 
 void Parser::parse(std::string path_file)
 {
-Lexer::get_instance()->open_instructions_file(path_file);
+    Lexer *lex = new Lexer();
+    lex->open_instructions_file(path_file);
 
-    for (int i = 0; i < Lexer::get_instance()->get_size(); i++)
+    for (int i = 0; i < lex->get_size(); i++)
     {
-        std::vector<std::string> line = Lexer::get_instance()->get_line(i);
+        std::vector<std::string> line = lex->get_line(i);
         Command *next_command = commands[line[0]];
-        if(!next_command) next_command = commands["equal"];
+        if (!next_command)
+            next_command = commands["equal"];
 
         if (line[0] == "while")
         {
-            create_vec_line(i);
+            create_vec_line(i, lex);
             next_command->do_command(line);
-            i = vec_lines_to_while.back()+1;
+            i = vec_lines_to_while.back() + 1;
             continue;
         }
-         
+
         try
         {
             next_command->do_command(line);
         }
-        catch(const std::exception& e)
+        catch (const std::exception &e)
         {
             std::cerr << e.what() << '\n';
             continue;
         }
-    }    
-    return ;
+    }
+    delete lex;
+    return;
 }
 
-void Parser::create_vec_line(int num_line)
+void Parser::create_vec_line(int num_line, Lexer *lex)
 {
     num_line++;
     vec_lines_to_while.clear();
-    while(Lexer::get_instance()->get_line(num_line)[0] != "}")
+    while (lex->get_line(num_line)[0] != "}")
     {
         vec_lines_to_while.push_back(num_line);
         num_line++;
     }
 }
 
-Command* Parser::get_command(std::string name_command)
+Command *Parser::get_command(std::string name_command)
 {
     Command *next_command = commands[name_command];
-    if(!next_command) next_command = commands["equal"];
+    if (!next_command)
+        next_command = commands["equal"];
     return next_command;
 }

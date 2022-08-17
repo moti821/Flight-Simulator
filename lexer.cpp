@@ -4,17 +4,6 @@
 
 std::vector<std::vector<std::string>> Lexer::all_lines;
 
-Lexer* Lexer::instance = 0;
-
-Lexer* Lexer::get_instance()
-{
-    if(instance == 0)
-    {
-        Lexer* instance = new Lexer;
-    }
-    return instance;
-}
-
 void Lexer::open_instructions_file(std::string file_path)
 {
 
@@ -31,11 +20,10 @@ void Lexer::open_instructions_file(std::string file_path)
 
         split_string(string_line, delim, vec_line);
 
-        if(!std::isalpha(vec_line[0][0]) && vec_line[0][0] != '}')
-        vec_line[0] = delete_space(vec_line[0]);
+        if (!std::isalpha(vec_line[0][0]) && vec_line[0][0] != '}')
+            vec_line[0] = delete_space(vec_line[0]);
 
         all_lines.push_back(vec_line);
-
     };
     fs.close();
 
@@ -64,17 +52,19 @@ int Lexer::get_size()
 
 std::string Lexer::delete_space(std::string to_fix)
 {
-    while(!std::isalpha(to_fix[0]))
+    while (!std::isalpha(to_fix[0]))
     {
-        to_fix.erase(0,1);
+        to_fix.erase(0, 1);
     }
-    return to_fix; 
+    return to_fix;
 }
 
 void Lexer::print_all_vectors()
 {
-    for( int i=0 ; i < all_lines.size() ; i++ ){
-        for( int j=0 ; j < all_lines[i].size() ; j++){
+    for (int i = 0; i < all_lines.size(); i++)
+    {
+        for (int j = 0; j < all_lines[i].size(); j++)
+        {
             std::cout << all_lines[i][j] << " ";
         }
         std::cout << std::endl;

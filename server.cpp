@@ -11,7 +11,6 @@
 
 Server *Server::instance = 0;
 void get_data(int connection, int sockfd);
-// void split_string(std::string const &str, const char delimiter, std::vector<std::string> &vec_line);
 std::array<std::string, 36> Server::name_to_number;
 
 Server *Server::get_instance(std::vector<std::string> lin)
@@ -22,7 +21,7 @@ Server *Server::get_instance(std::vector<std::string> lin)
   };
   return instance;
 }
-Server::Server(std::vector<std::string> line_cmd){}
+Server::Server(std::vector<std::string> line_cmd) {}
 
 void Server::open_connect()
 {
@@ -64,8 +63,8 @@ void Server::open_connect()
     exit(EXIT_FAILURE);
   }
 
-  t2 = std::thread(get_data,connection, sockfd);
-  
+  t2 = std::thread(get_data, connection, sockfd);
+
   return;
 }
 
@@ -85,10 +84,10 @@ void get_data(int connection, int sockfd)
     std::vector<std::string> values;
     split_string(buffer, ',', values);
 
-    for (int j = 0; j < Server::get_instance({""})->name_to_number.size() ; j++)
+    for (int j = 0; j < Server::get_instance({""})->name_to_number.size(); j++)
     {
       std::string name = Server::get_instance({""})->name_to_number[j];
-      if(name != "")
+      if (name != "")
       {
         DataBase::get_instance()->insert_value(name, std::stod(values[j]));
       }

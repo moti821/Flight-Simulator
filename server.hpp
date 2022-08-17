@@ -10,6 +10,7 @@ public:
     static std::array<std::string, 36> name_to_number;
     void open_simulator();
 
+
 private:
     static Server *instance;
     Server(std::vector<std::string>);

@@ -10,10 +10,9 @@
 #include "shunting_yard.cpp"
 
 std::unordered_map<std::string, std::string> VarCommand::variable;
-std::vector<std::string> paths = {"/instrumentation/airspeed-indicator/indicated-speed-kt","/sim/time/warp","/controls/switches/magnetos","/instrumentation/heading-indicator/offset-deg","/instrumentation/altimeter/indicated-altitude-ft","/instrumentation/altimeter/pressure-alt-ft","/instrumentation/attitude-indicator/indicated-pitch-deg","/instrumentation/attitude-indicator/indicated-roll-deg","/instrumentation/attitude-indicator/internal-pitch-deg","/instrumentation/attitude-indicator/internal-roll-deg","/instrumentation/encoder/indicated-altitude-ft","/instrumentation/encoder/pressure-alt-ft","/instrumentation/gps/indicated-altitude-ft","/instrumentation/gps/indicated-ground-speed-kt","/instrumentation/gps/indicated-vertical-speed","/instrumentation/heading-indicator/indicated-heading-deg","/instrumentation/magnetic-compass/indicated-heading-deg","/instrumentation/slip-skid-ball/indicated-slip-skid","/instrumentation/turn-indicator/indicated-turn-rate","/instrumentation/vertical-speed-indicator/indicated-speed-fpm","/controls/flight/aileron","/controls/flight/elevator","/controls/flight/rudder","/controls/flight/flaps","/controls/engines/engine/throttle","/controls/engines/current-engine/throttle","/controls/switches/master-avionics","/controls/switches/starter","/engines/active-engine/auto-start","/controls/flight/speedbrake" ,"/sim/model/c172p/brake-parking","/controls/engines/engine/primer","/controls/engines/current-engine/mixture","/controls/switches/master-bat","/controls/switches/master-alt","/engines/engine/rpm"};
+std::vector<std::string> paths = {"/instrumentation/airspeed-indicator/indicated-speed-kt", "/sim/time/warp", "/controls/switches/magnetos", "/instrumentation/heading-indicator/offset-deg", "/instrumentation/altimeter/indicated-altitude-ft", "/instrumentation/altimeter/pressure-alt-ft", "/instrumentation/attitude-indicator/indicated-pitch-deg", "/instrumentation/attitude-indicator/indicated-roll-deg", "/instrumentation/attitude-indicator/internal-pitch-deg", "/instrumentation/attitude-indicator/internal-roll-deg", "/instrumentation/encoder/indicated-altitude-ft", "/instrumentation/encoder/pressure-alt-ft", "/instrumentation/gps/indicated-altitude-ft", "/instrumentation/gps/indicated-ground-speed-kt", "/instrumentation/gps/indicated-vertical-speed", "/instrumentation/heading-indicator/indicated-heading-deg", "/instrumentation/magnetic-compass/indicated-heading-deg", "/instrumentation/slip-skid-ball/indicated-slip-skid", "/instrumentation/turn-indicator/indicated-turn-rate", "/instrumentation/vertical-speed-indicator/indicated-speed-fpm", "/controls/flight/aileron", "/controls/flight/elevator", "/controls/flight/rudder", "/controls/flight/flaps", "/controls/engines/engine/throttle", "/controls/engines/current-engine/throttle", "/controls/switches/master-avionics", "/controls/switches/starter", "/engines/active-engine/auto-start", "/controls/flight/speedbrake", "/sim/model/c172p/brake-parking", "/controls/engines/engine/primer", "/controls/engines/current-engine/mixture", "/controls/switches/master-bat", "/controls/switches/master-alt", "/engines/engine/rpm"};
 
-
-void OpenServerCommand::do_command(const std::vector<std::string>& line_command)
+void OpenServerCommand::do_command(const std::vector<std::string> &line_command)
 {
     if (line_command.size() != 3)
     {
@@ -24,7 +23,7 @@ void OpenServerCommand::do_command(const std::vector<std::string>& line_command)
     return;
 }
 
-void ConnectCommand::do_command(const std::vector<std::string>& line_command)
+void ConnectCommand::do_command(const std::vector<std::string> &line_command)
 {
     if (line_command.size() != 3)
     {
@@ -39,35 +38,36 @@ void ConnectCommand::do_command(const std::vector<std::string>& line_command)
     return;
 }
 
-void VarCommand::do_command(const std::vector<std::string>& line_command)
+void VarCommand::do_command(const std::vector<std::string> &line_command)
 {
     std::string name_var = line_command[1];
 
-    if((line_command[3] == "bind") && (line_command.size() == 5))
+    if ((line_command[3] == "bind") && (line_command.size() == 5))
     {
         std::string path_command = line_command[4];
-        path_command.erase(0,1), path_command.pop_back();
+        path_command.erase(0, 1), path_command.pop_back();
 
         for (int j = 0; j < paths.size(); j++)
         {
-            if(paths[j] == path_command)
-            Server::get_instance({""})->name_to_number[j] = name_var;
+            if (paths[j] == path_command)
+                Server::get_instance({""})->name_to_number[j] = name_var;
         }
-        
+
         variable[name_var] = path_command;
         DataBase::get_instance()->insert_value(name_var, 0);
-        std::cout << "the name is: " << name_var << " and "  <<path_command<< std::endl;
+        std::cout << "the name is: " << name_var << " and " << path_command << std::endl;
     }
-    else{
+    else
+    {
         double value = DataBase::get_instance()->get_value(line_command[3]);
         DataBase::get_instance()->insert_value(name_var, value);
     }
     return;
 }
 
-void EqualCommand::do_command(const std::vector<std::string>& line_command)
+void EqualCommand::do_command(const std::vector<std::string> &line_command)
 {
-    if(line_command[1] == "=")
+    if (line_command[1] == "=")
     {
         VarCommand var;
         std::string string_line;
@@ -81,10 +81,13 @@ void EqualCommand::do_command(const std::vector<std::string>& line_command)
         Calculator c;
         std::string result = std::to_string(c.calculate(new_string));
         std::string message_is = "set " + var.variable[line_command[0]] + " " + result + "\r\n";
-        char* message = &message_is[0];
-        Client::getInstance()->send(message);        
+        char *message = &message_is[0];
+        Client::getInstance()->send(message);
     }
-    else { std::cout << "error: the command not found" << std::endl; }
+    else
+    {
+        std::cout << "error: the command not found" << std::endl;
+    }
 
     return;
 }
@@ -94,7 +97,7 @@ std::string EqualCommand::find_word_convert_to_value(std::string str_line)
     std::string new_string;
     for (int k = 0; k < str_line.size(); k++)
     {
-        if(isalpha(str_line[k]))
+        if (isalpha(str_line[k]))
         {
             std::string var_str;
             while (isalpha(str_line[k]) || isdigit(str_line[k]))
@@ -104,81 +107,95 @@ std::string EqualCommand::find_word_convert_to_value(std::string str_line)
             }
             k--;
             double value = DataBase::get_instance()->get_value(var_str);
-            new_string += std::to_string(value);                
+            new_string += std::to_string(value);
         }
-        else{ new_string += str_line[k]; }             
-    }   
-    return new_string;   
+        else
+        {
+            new_string += str_line[k];
+        }
+    }
+    return new_string;
 }
 
-void WhileCommand::do_command(const std::vector<std::string>& line_command)
+void WhileCommand::do_command(const std::vector<std::string> &line_command)
 {
-    if(line_command.size() != 5)
+    if (line_command.size() != 5)
     {
         std::cout << "error: the condition of while loop not clear" << std::endl;
         return;
     }
 
     Parser pars{};
+    Lexer *lex = new Lexer();
     double val_condition = std::stod(line_command[3]);
-    while(expression(DataBase::get_instance()->get_value(line_command[1]), line_command[2], val_condition))
+    while (expression(DataBase::get_instance()->get_value(line_command[1]), line_command[2], val_condition))
     {
         for (int i : pars.vec_lines_to_while)
         {
-            std::vector<std::string> line_command = Lexer::get_instance()->get_line(i);
+            std::vector<std::string> line_command = lex->get_line(i);
             try
             {
-                Command* command = pars.get_command(line_command[0]);
+                Command *command = pars.get_command(line_command[0]);
                 command->do_command(line_command);
             }
-            catch(const std::exception& e)
+            catch (const std::exception &e)
             {
                 std::cerr << e.what() << '\n';
                 continue;
-            }            
-        }        
+            }
+        }
     }
+    delete lex;
     return;
 }
 
 bool WhileCommand::expression(double x, std::string operat, double y)
 {
-    if     ((operat ==  "<") && (x < y))  return true;
-    else if((operat ==  ">") && (x > y))  return true;
-    else if((operat == ">=") && (x >= y)) return true;
-    else if((operat == "<=") && (x <= y)) return true;
-    else if((operat == "==") && (x == y)) return true;
-    else if((operat == "!=") && (x != y)) return true;
-    
+    if ((operat == "<") && (x < y))
+        return true;
+    else if ((operat == ">") && (x > y))
+        return true;
+    else if ((operat == ">=") && (x >= y))
+        return true;
+    else if ((operat == "<=") && (x <= y))
+        return true;
+    else if ((operat == "==") && (x == y))
+        return true;
+    else if ((operat == "!=") && (x != y))
+        return true;
+
     return false;
 }
 
-void PrintCommand::do_command(const std::vector<std::string>& line_command)
+void PrintCommand::do_command(const std::vector<std::string> &line_command)
 {
     std::string name = line_command[1];
     if (name[0] == '"')
     {
-        if(line_command.size() > 2)
+        if (line_command.size() > 2)
         {
-            for(int j = 2; j<line_command.size(); j++)
+            for (int j = 2; j < line_command.size(); j++)
             {
                 name += ' ';
-                name += line_command[j]; 
+                name += line_command[j];
             }
         }
         std::cout << name << std::endl;
     }
-    else if(line_command.size() == 2)
+    else if (line_command.size() == 2)
     {
         std::cout << "The value of " << name << " is: " << DataBase::get_instance()->get_value(name) << std::endl;
     }
-    else { std::cout << "EROOR: the ptinting not found" << std::endl; }
-    return;    
+    else
+    {
+        std::cout << "EROOR: the ptinting not found" << std::endl;
+    }
+    return;
 }
 
-void SleepCommand::do_command(const std::vector<std::string>& line_command)
+void SleepCommand::do_command(const std::vector<std::string> &line_command)
 {
     std::cout << "sleeping " << line_command[1] << " milliseconds" << std::endl;
     std::this_thread::sleep_for(std::chrono::milliseconds(std::stoi(line_command[1])));
     return;
-}       
+}
