@@ -9,7 +9,7 @@ DataBase *DataBase::get_instance()
 {
     if (instance == 0)
     {
-        DataBase *instance = new DataBase;
+        instance = new DataBase;
     };
     return instance;
 }
