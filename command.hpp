@@ -35,6 +35,7 @@ class EqualCommand : public Command
 {
 public:
     void do_command(const std::vector<std::string> &line);
+private:
     std::string find_word_convert_to_value(std::string str_line);
 };
 
@@ -42,6 +43,7 @@ class WhileCommand : public Command
 {
 public:
     void do_command(const std::vector<std::string> &line);
+private:
     bool expression(double value, std::string operat, double condition);
 
 private:

@@ -52,13 +52,13 @@ void VarCommand::do_command(const std::vector<std::string> &line_command)
         }
 
         variable[name_var] = path_command;
-        DataBase::get_instance()->insert_value(name_var, 0);
+        DataBase::get_instance()->set_value(name_var, 0);
         std::cout << "the name is: " << name_var << " and " << path_command << std::endl;
     }
     else
     {
         double value = DataBase::get_instance()->get_value(line_command[3]);
-        DataBase::get_instance()->insert_value(name_var, value);
+        DataBase::get_instance()->set_value(name_var, value);
     }
 }
 

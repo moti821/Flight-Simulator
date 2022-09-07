@@ -5,10 +5,10 @@
 class Server
 {
 public:
-    static Server *get_instance(std::vector<std::string> lin);
+    static Server *get_instance(std::vector<std::string> line);
     void open_connect();
-    static std::array<std::string, 36> name_to_number;
     void open_simulator();
+    static std::array<std::string, 36> name_to_number;
 
 
 private:

@@ -87,7 +87,7 @@ void get_data(int connection, int sockfd)
       std::string name = Server::get_instance({""})->name_to_number[j];
       if (name != "")
       {
-        DataBase::get_instance()->insert_value(name, std::stod(values[j]));
+        DataBase::get_instance()->set_value(name, std::stod(values[j]));
       }
     }
   }

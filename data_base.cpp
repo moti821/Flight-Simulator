@@ -16,7 +16,7 @@ DataBase *DataBase::get_instance()
 
 DataBase::DataBase() {}
 
-void DataBase::insert_value(std::string var, double value)
+void DataBase::set_value(std::string var, double value)
 {
     my_lock.lock();
     symbol_table[var] = value;

@@ -5,7 +5,7 @@ class DataBase
 {
 public:
     static DataBase *get_instance();
-    void insert_value(std::string var, double value);
+    void set_value(std::string var, double value);
     double get_value(std::string var);
 
 private:
