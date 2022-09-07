@@ -38,6 +38,11 @@ void ConnectCommand::do_command(const std::vector<std::string> &line_command)
 
 void VarCommand::do_command(const std::vector<std::string> &line_command)
 {
+    if (line_command.size() < 3)
+    {
+        std::cout << "Var need more arguments" << std::endl;
+        return;
+    }
     std::string name_var = line_command[1];
 
     if ((line_command[3] == "bind") && (line_command.size() == 5))
@@ -53,7 +58,6 @@ void VarCommand::do_command(const std::vector<std::string> &line_command)
 
         variable[name_var] = path_command;
         DataBase::get_instance()->set_value(name_var, 0);
-        std::cout << "the name is: " << name_var << " and " << path_command << std::endl;
     }
     else
     {
@@ -64,7 +68,8 @@ void VarCommand::do_command(const std::vector<std::string> &line_command)
 
 void EqualCommand::do_command(const std::vector<std::string> &line_command)
 {
-    if (line_command[1] == "=")
+    
+    if (line_command.size() > 1 && line_command[1] == "=")
     {
         VarCommand var;
         std::string string_line;
