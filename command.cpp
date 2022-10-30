@@ -19,7 +19,7 @@ void OpenServerCommand::do_command(const std::vector<std::string> &line_command)
         std::cout << "Enter port and rhythm" << std::endl;
         return;
     }
-    Server::get_instance(line_command)->open_connect();
+    Server::get_instance()->open_connect();
 }
 
 void ConnectCommand::do_command(const std::vector<std::string> &line_command)
@@ -50,10 +50,10 @@ void VarCommand::do_command(const std::vector<std::string> &line_command)
         std::string path_command = line_command[4];
         path_command.erase(0, 1), path_command.pop_back();
 
-        for (int j = 0; j < paths.size(); j++)
+        for (unsigned int j = 0; j < paths.size(); j++)
         {
             if (paths[j] == path_command)
-                Server::get_instance({""})->name_to_number[j] = name_var;
+                Server::get_instance()->name_to_number[j] = name_var;
         }
 
         variable[name_var] = path_command;
@@ -73,7 +73,7 @@ void EqualCommand::do_command(const std::vector<std::string> &line_command)
     {
         VarCommand var;
         std::string string_line;
-        for (int j = 2; j < line_command.size(); j++)
+        for (unsigned int j = 2; j < line_command.size(); j++)
         {
             string_line += line_command[j];
         }
@@ -92,10 +92,10 @@ void EqualCommand::do_command(const std::vector<std::string> &line_command)
     }
 }
 
-std::string EqualCommand::find_word_convert_to_value(std::string str_line)
+std::string EqualCommand::find_word_convert_to_value(const std::string &str_line)
 {
     std::string new_string;
-    for (int k = 0; k < str_line.size(); k++)
+    for (unsigned int k = 0; k < str_line.size(); k++)
     {
         if (isalpha(str_line[k]))
         {
@@ -149,7 +149,7 @@ void WhileCommand::do_command(const std::vector<std::string> &line_command)
     delete lex;
 }
 
-bool WhileCommand::expression(double x, std::string operat, double y)
+bool WhileCommand::expression(double x, const std::string &operat, double y)
 {
     if ((operat == "<") && (x < y))
         return true;
@@ -174,7 +174,7 @@ void PrintCommand::do_command(const std::vector<std::string> &line_command)
     {
         if (line_command.size() > 2)
         {
-            for (int j = 2; j < line_command.size(); j++)
+            for (unsigned int j = 2; j < line_command.size(); j++)
             {
                 name += ' ';
                 name += line_command[j];

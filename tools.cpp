@@ -11,7 +11,7 @@ void split_string(std::string const &str, const char delim,
     std::stringstream string_stream(str);
 
     while (std::getline(string_stream, strings_to_vector, delim))
-    {
+    { 
         vec_of_strings.push_back(strings_to_vector);
     }
 }

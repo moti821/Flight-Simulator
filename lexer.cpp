@@ -4,7 +4,7 @@
 
 std::vector<std::vector<std::string>> Lexer::all_lines;
 
-void Lexer::open_instructions_file(std::string file_path)
+void Lexer::open_instructions_file(const std::string &file_path)
 {
 
     std::string string_line;
@@ -59,9 +59,9 @@ std::string Lexer::delete_space(std::string to_fix)
 
 void Lexer::print_all_vectors()
 {
-    for (int i = 0; i < all_lines.size(); i++)
+    for (unsigned int i = 0; i < all_lines.size(); i++)
     {
-        for (int j = 0; j < all_lines[i].size(); j++)
+        for (unsigned int j = 0; j < all_lines[i].size(); j++)
         {
             std::cout << all_lines[i][j] << " ";
         }

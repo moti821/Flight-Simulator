@@ -13,15 +13,15 @@ Server *Server::instance = 0;
 void get_data(int connection, int sockfd);
 std::array<std::string, 36> Server::name_to_number;
 
-Server *Server::get_instance(std::vector<std::string> lin)
+Server *Server::get_instance()
 {
   if (instance == 0)
   {
-    instance = new Server(lin);
+    instance = new Server();
   };
   return instance;
 }
-Server::Server(std::vector<std::string> line_cmd) {}
+Server::Server() {}
 
 void Server::open_connect()
 {
@@ -77,14 +77,14 @@ void get_data(int connection, int sockfd)
   {
     // Read from the connection
     char buffer[1024] = {0};
-    auto bytesRead = read(connection, buffer, 1024);
+    read(connection, buffer, 1024);
 
     std::vector<std::string> values;
     split_string(buffer, ',', values);
 
-    for (int j = 0; j < Server::get_instance({""})->name_to_number.size(); j++)
+    for (unsigned int j = 0; j < Server::get_instance()->name_to_number.size(); j++)
     {
-      std::string name = Server::get_instance({""})->name_to_number[j];
+      std::string name = Server::get_instance()->name_to_number[j];
       if (name != "")
       {
         DataBase::get_instance()->set_value(name, std::stod(values[j]));

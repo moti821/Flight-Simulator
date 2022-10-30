@@ -5,7 +5,7 @@
 class Server
 {
 public:
-    static Server *get_instance(std::vector<std::string> line);
+    static Server *get_instance();
     void open_connect();
     void open_simulator();
     static std::array<std::string, 36> name_to_number;
@@ -13,7 +13,7 @@ public:
 
 private:
     static Server *instance;
-    Server(std::vector<std::string>);
+    Server();
     std::thread t1;
     std::thread t2;
 

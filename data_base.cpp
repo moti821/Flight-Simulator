@@ -16,14 +16,14 @@ DataBase *DataBase::get_instance()
 
 DataBase::DataBase() {}
 
-void DataBase::set_value(std::string var, double value)
+void DataBase::set_value(const std::string &var, double value)
 {
     my_lock.lock();
     symbol_table[var] = value;
     my_lock.unlock();
 }
 
-double DataBase::get_value(std::string var)
+double DataBase::get_value(const std::string &var)
 {
     my_lock.lock();
     double value = symbol_table[var];

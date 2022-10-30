@@ -213,7 +213,7 @@ public:
         Note: Expression is expected to be in infix form.
      */
     double calculate (std::string& expr) { 
-        for (int i = 0; i < expr.size(); i++)
+        for (unsigned int i = 0; i < expr.size(); i++)
         {
             if(expr[0] == '-' && expr[1] == '-')
             {

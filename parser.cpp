@@ -27,7 +27,7 @@ Parser::~Parser()
     delete commands["sleep"];
 }
 
-void Parser::parse(std::string path_file)
+void Parser::parse(const std::string &path_file)
 {
     Lexer *lex = new Lexer();
     lex->open_instructions_file(path_file);
@@ -71,7 +71,7 @@ void Parser::create_vec_line(int num_line, Lexer *lex)
     }
 }
 
-Command *Parser::get_command(std::string name_command)
+Command *Parser::get_command(const std::string &name_command)
 {
     Command *next_command = commands[name_command];
     if (!next_command)

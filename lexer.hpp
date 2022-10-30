@@ -6,12 +6,12 @@
 class Lexer
 {
 public:
-    void open_instructions_file(std::string file_path);
+    void open_instructions_file(const std::string &file_path);
     std::vector<std::string> get_line(int num_line);
     int get_size();
 
 private:
-    std::string delete_space(std::string);
+    std::string delete_space(std::string str);
     void print_all_vectors();
     static std::vector<std::vector<std::string>> all_lines;
 };

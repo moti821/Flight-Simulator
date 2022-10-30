@@ -7,7 +7,7 @@ class Command
 {
 public:
     virtual void do_command(const std::vector<std::string> &line) = 0;
-    virtual ~Command() {}
+    virtual ~Command() = default;
 };
 
 class OpenServerCommand : public Command
@@ -36,7 +36,7 @@ class EqualCommand : public Command
 public:
     void do_command(const std::vector<std::string> &line);
 private:
-    std::string find_word_convert_to_value(std::string str_line);
+    std::string find_word_convert_to_value(const std::string &str_line);
 };
 
 class WhileCommand : public Command
@@ -44,7 +44,7 @@ class WhileCommand : public Command
 public:
     void do_command(const std::vector<std::string> &line);
 private:
-    bool expression(double value, std::string operat, double condition);
+    bool expression(double value, const std::string &operat, double condition);
 
 private:
 };

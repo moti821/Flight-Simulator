@@ -9,8 +9,8 @@ public:
     Parser();
     ~Parser();
 
-    void parse(std::string path);
-    Command *get_command(std::string name_command);
+    void parse(const std::string &path);
+    Command *get_command(const std::string &name_command);
     static std::vector<int> vec_lines_to_while;
 
 private:
