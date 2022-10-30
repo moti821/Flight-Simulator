@@ -32,7 +32,7 @@ void Parser::parse(const std::string &path_file)
     Lexer *lex = new Lexer();
     lex->open_instructions_file(path_file);
 
-    for (int i = 0; i < lex->get_size(); i++)
+    for (size_t i = 0; i < lex->get_size(); i++)
     {
         std::vector<std::string> line = lex->get_line(i);
         Command *next_command = commands[line[0]];

@@ -17,7 +17,7 @@ Client *Client::getInstance()
 }
 Client::Client() {}
 
-void Client::connect(int port, std::string ip)
+void Client::connect(int port, const std::string &ip)
 {
 
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)

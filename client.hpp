@@ -4,7 +4,7 @@ class Client
 public:
     /* Static access method. */
     static Client *getInstance();
-    void connect(int port, std::string ip);
+    void connect(int port, const std::string &ip);
     void send(char *message);
 
 private:

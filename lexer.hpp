@@ -8,7 +8,7 @@ class Lexer
 public:
     void open_instructions_file(const std::string &file_path);
     std::vector<std::string> get_line(int num_line);
-    int get_size();
+    size_t get_size();
 
 private:
     std::string delete_space(std::string str);

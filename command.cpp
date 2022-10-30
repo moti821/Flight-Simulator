@@ -50,7 +50,7 @@ void VarCommand::do_command(const std::vector<std::string> &line_command)
         std::string path_command = line_command[4];
         path_command.erase(0, 1), path_command.pop_back();
 
-        for (unsigned int j = 0; j < paths.size(); j++)
+        for (size_t j = 0; j < paths.size(); j++)
         {
             if (paths[j] == path_command)
                 Server::get_instance()->name_to_number[j] = name_var;
@@ -73,7 +73,7 @@ void EqualCommand::do_command(const std::vector<std::string> &line_command)
     {
         VarCommand var;
         std::string string_line;
-        for (unsigned int j = 2; j < line_command.size(); j++)
+        for (size_t j = 2; j < line_command.size(); j++)
         {
             string_line += line_command[j];
         }
@@ -95,7 +95,7 @@ void EqualCommand::do_command(const std::vector<std::string> &line_command)
 std::string EqualCommand::find_word_convert_to_value(const std::string &str_line)
 {
     std::string new_string;
-    for (unsigned int k = 0; k < str_line.size(); k++)
+    for (size_t k = 0; k < str_line.size(); k++)
     {
         if (isalpha(str_line[k]))
         {
@@ -174,7 +174,7 @@ void PrintCommand::do_command(const std::vector<std::string> &line_command)
     {
         if (line_command.size() > 2)
         {
-            for (unsigned int j = 2; j < line_command.size(); j++)
+            for (size_t j = 2; j < line_command.size(); j++)
             {
                 name += ' ';
                 name += line_command[j];

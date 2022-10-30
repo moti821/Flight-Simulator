@@ -39,7 +39,7 @@ std::vector<std::string> Lexer::get_line(int i)
     return all_lines[i];
 }
 
-int Lexer::get_size()
+size_t Lexer::get_size()
 {
     if (all_lines.size() < 1)
     {
@@ -59,9 +59,9 @@ std::string Lexer::delete_space(std::string to_fix)
 
 void Lexer::print_all_vectors()
 {
-    for (unsigned int i = 0; i < all_lines.size(); i++)
+    for (size_t i = 0; i < all_lines.size(); i++)
     {
-        for (unsigned int j = 0; j < all_lines[i].size(); j++)
+        for (size_t j = 0; j < all_lines[i].size(); j++)
         {
             std::cout << all_lines[i][j] << " ";
         }

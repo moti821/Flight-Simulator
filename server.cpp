@@ -82,7 +82,7 @@ void get_data(int connection, int sockfd)
     std::vector<std::string> values;
     split_string(buffer, ',', values);
 
-    for (unsigned int j = 0; j < Server::get_instance()->name_to_number.size(); j++)
+    for (size_t j = 0; j < Server::get_instance()->name_to_number.size(); j++)
     {
       std::string name = Server::get_instance()->name_to_number[j];
       if (name != "")
