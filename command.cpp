@@ -1,10 +1,10 @@
 #include <string>
 #include "command.hpp"
 #include "lexer.hpp"
-#include "server.hpp"
+#include "DBserver.hpp"
 #include "client.hpp"
 #include "parser.hpp"
-#include "data_base.hpp"
+#include "symbol_table.hpp"
 #include "shunting_yard.cpp"
 
 
@@ -32,7 +32,7 @@ void ConnectCommand::do_command(const std::vector<std::string> &line_command)
     Client::getInstance()->connect(port, ip);
 }
 
-DataBase* symbol_instance = DataBase::get_instance();
+SymbolTable* symbol_instance = SymbolTable::get_instance();
 
 void VarCommand::do_command(const std::vector<std::string> &line_command)
 {

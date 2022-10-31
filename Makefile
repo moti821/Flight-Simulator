@@ -1,5 +1,5 @@
 CC = g++
-TARGET = main.o client.o server.o lexer.o command.o parser.o data_base.o tools.o
+TARGET = main.o client.o DBserver.o lexer.o command.o parser.o symbol_table.o tools.o
 CFLAGS = -std=c++17 -Wall -pedantic -c
 
 main:	$(TARGET)
@@ -14,11 +14,11 @@ parser.o: parser.cpp lexer.cpp command.cpp
 lexer.o: lexer.cpp tools.cpp
 		$(CC) $(CFLAGS) lexer.cpp 
 
-command.o: command.cpp lexer.cpp parser.cpp server.cpp client.cpp data_base.cpp shunting_yard.cpp
+command.o: command.cpp lexer.cpp parser.cpp DBserver.cpp client.cpp symbol_table.cpp shunting_yard.cpp
 		$(CC) $(CFLAGS) command.cpp -pthread
 
-server.o: server.cpp tools.cpp data_base.cpp 
-		$(CC) $(CFLAGS) server.cpp -pthread
+DBserver.o: DBserver.cpp tools.cpp symbol_table.cpp 
+		$(CC) $(CFLAGS) DBserver.cpp -pthread
 
 tools.o: tools.cpp
 		$(CC) $(CFLAGS) tools.cpp
@@ -26,8 +26,8 @@ tools.o: tools.cpp
 client.o: client.cpp
 		$(CC) $(CFLAGS) client.cpp
 
-data_base.o: data_base.cpp
-		$(CC) $(CFLAGS) data_base.cpp
+symbol_table.o: symbol_table.cpp
+		$(CC) $(CFLAGS) symbol_table.cpp
 
 clean:
 		rm *.o main

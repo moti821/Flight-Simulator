@@ -5,8 +5,8 @@
 #include <iostream>     // For cout
 #include <unistd.h>     // For read
 #include <cstring>
-#include "data_base.hpp"
-#include "server.hpp"
+#include "symbol_table.hpp"
+#include "DBserver.hpp"
 #include "tools.hpp"
 
 Server *Server::instance = 0;
@@ -86,7 +86,7 @@ void get_data(int connection, int sockfd)
 
     for (size_t j = 0; j < paths.size(); j++)
     {
-      DataBase::get_instance()->set_data(paths[j], std::stod(values[j]));
+      SymbolTable::get_instance()->set_data(paths[j], std::stod(values[j]));
     }
   }
 

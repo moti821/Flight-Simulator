@@ -1,25 +1,25 @@
 #include <mutex>
 #include <iostream>
-#include "data_base.hpp"
+#include "symbol_table.hpp"
 #include "client.hpp"
 
 
-DataBase *DataBase::instance = 0;
+SymbolTable *SymbolTable::instance = 0;
 std::mutex my_lock;
 
 
-DataBase *DataBase::get_instance()
+SymbolTable *SymbolTable::get_instance()
 {
     if (instance == 0)
     {
-        instance = new DataBase;
+        instance = new SymbolTable;
     };
     return instance;
 }
 
-DataBase::DataBase() {}
+SymbolTable::SymbolTable() {}
 
-void DataBase::set_var(const std::string &name, const std::string &path)
+void SymbolTable::set_var(const std::string &name, const std::string &path)
 {
     my_lock.lock();
     try
@@ -36,7 +36,7 @@ void DataBase::set_var(const std::string &name, const std::string &path)
     
 }
 
-void DataBase::set_data(const std::string &path, double value)
+void SymbolTable::set_data(const std::string &path, double value)
 {
     std::string var = variable[path];
     if(var != " ")
@@ -54,7 +54,7 @@ void DataBase::set_data(const std::string &path, double value)
     }
 }
 
-void DataBase::set_value(const std::string &var, double value)
+void SymbolTable::set_value(const std::string &var, double value)
 {
     std::string path = paths[var];
     if (path == "")
@@ -76,7 +76,7 @@ void DataBase::set_value(const std::string &var, double value)
     }
 }
 
-double DataBase::get_value(const std::string &var)
+double SymbolTable::get_value(const std::string &var)
 {
     my_lock.lock();
     double value;
