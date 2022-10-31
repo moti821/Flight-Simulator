@@ -12,5 +12,5 @@ int main(int argc, char **argv)
     Parser *pars = new Parser();
     pars->parse(argv[1]);
     delete pars;
-    return 1;
+    return 0;
 }

@@ -1,11 +1,10 @@
-
 class Client
 {
 public:
     /* Static access method. */
     static Client *getInstance();
     void connect(int port, std::string ip);
-    void send(char *message);
+    void send(std::string path, double value);
 
 private:
     /* Null, because instance will be initialized on demand. */

@@ -37,8 +37,11 @@ void Client::connect(int port, std::string ip)
     }
 }
 
-void Client::send(char *command)
+void Client::send(std::string path, double value)
 {
+    std::string string_value = std::to_string(value); 
+    std::string message_is = "set " + path + " " + string_value + "\r\n";
+    char *command = &message_is[0];
     ::send(sock, command, strlen(command), 0);
     valread = read(sock, buffer, 1024);
 }

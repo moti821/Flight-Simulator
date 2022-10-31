@@ -1,3 +1,4 @@
+#include <iostream>
 #include <vector>
 #include "parser.hpp"
 #include "lexer.hpp"
@@ -10,7 +11,7 @@ Parser::Parser()
     commands["openDataServer"] = new OpenServerCommand;
     commands["connect"] = new ConnectCommand;
     commands["var"] = new VarCommand;
-    commands["equal"] = new EqualCommand;
+    commands["assignment"] = new AssignmentCommand;
     commands["while"] = new WhileCommand;
     commands["print"] = new PrintCommand;
     commands["sleep"] = new SleepCommand;
@@ -21,7 +22,7 @@ Parser::~Parser()
     delete commands["openDataServer"];
     delete commands["connect"];
     delete commands["var"];
-    delete commands["equal"];
+    delete commands["assignment"];
     delete commands["while"];
     delete commands["print"];
     delete commands["sleep"];
@@ -35,9 +36,14 @@ void Parser::parse(const std::string &path_file)
     for (size_t i = 0; i < lex->get_size(); i++)
     {
         std::vector<std::string> line = lex->get_line(i);
-        Command *next_command = commands[line[0]];
-        if (!next_command)
-            next_command = commands["equal"];
+        Command *next_command = NULL;
+        
+        if (commands.find(line[0]) == commands.end())
+            next_command = commands["assignment"];
+        else
+        {
+            next_command = commands[line[0]];
+        }
 
         if (line[0] == "while")
         {
@@ -73,8 +79,12 @@ void Parser::create_vec_line(int num_line, Lexer *lex)
 
 Command *Parser::get_command(const std::string &name_command)
 {
-    Command *next_command = commands[name_command];
-    if (!next_command)
-        next_command = commands["equal"];
+    Command *next_command = NULL;
+    if (commands.find(name_command) == commands.end())
+        next_command = commands["assignment"];
+    else
+    {
+        next_command = commands[name_command];
+    }
     return next_command;
 }

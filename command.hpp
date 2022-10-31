@@ -1,7 +1,6 @@
 #pragma once
 #include <vector>
 #include <string>
-#include <unordered_map>
 
 class Command
 {
@@ -26,12 +25,11 @@ class VarCommand : public Command
 {
 public:
     void do_command(const std::vector<std::string> &line);
-    static std::unordered_map<std::string, std::string> variable;
 
 private:
 };
 
-class EqualCommand : public Command
+class AssignmentCommand : public Command
 {
 public:
     void do_command(const std::vector<std::string> &line);

@@ -1,3 +1,4 @@
+#include <iostream>
 #include <fstream>
 #include "lexer.hpp"
 #include "tools.hpp"
